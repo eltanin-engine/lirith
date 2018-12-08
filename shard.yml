@@ -1,0 +1,21 @@
+name: lirith
+version: 0.1.0
+
+authors:
+  - Max Berends <max@maxberends.nl>
+
+targets:
+  lirith:
+    main: src/lirith.cr
+
+dependencies:
+  opengl:
+    github: Rinkana/opengl
+  lib_glfw:
+    github: Rinkana/lib_glfw
+  lib_glew:
+    github: Rinkana/lib_glew
+
+crystal: 0.20.5
+
+license: MIT

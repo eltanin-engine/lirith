@@ -1,0 +1,18 @@
+version: 1.0
+shards:
+  lib_gl:
+    github: Rinkana/lib_gl
+    commit: 6afeee879c9d261269cf057bcb8161c3798ddea9
+
+  lib_glew:
+    github: Rinkana/lib_glew
+    commit: 4fb7e4cdd588f9aae1dfc4dffac82090299c6932
+
+  lib_glfw:
+    github: Rinkana/lib_glfw
+    commit: 7e7b476b345826972c3531a95ee78d140e438768
+
+  opengl:
+    github: Rinkana/opengl
+    commit: d6eaafdac344f1b733867c0b8a130b18ecd44530
+
