@@ -1,4 +1,5 @@
 # lirith-engine
+[![Build Status](https://travis-ci.org/Rinkana/lirith-engine.svg?branch=master)](https://travis-ci.org/Rinkana/lirith-engine)
 
 Draw super-awsome graphics on screen with this engine. Fully built written in Crystal!
 
