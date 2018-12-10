@@ -10,11 +10,11 @@ targets:
 
 dependencies:
   opengl:
-    github: Rinkana/opengl
-  lib_glfw:
-    github: Rinkana/lib_glfw
-  lib_glew:
-    github: Rinkana/lib_glew
+    github: lirith-engine/opengl
+  glfw:
+    github: lirith-engine/glfw
+  glew:
+    github: lirith-engine/glew
 
 crystal: 0.20.5
 

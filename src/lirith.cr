@@ -1,18 +1,20 @@
 require "./lirith/*"
+#require "lib_glfw"
+#require "lib_glew"
 
 module Lirith
   # TODO Put your code here
 end
 
-window = GLFW::Window.new
+#window = GLFW::Window.new
 
-camera = Lirith::Camera.new
-scene = Lirith::Scene.new
-renderer = OpenGL::Program.new # ???
+#camera = Lirith::Camera.new
+#scene = Lirith::Scene.new
+#renderer = OpenGL::Program.new # ???
 
-cube = Lirith::Mesh.new
+#cube = Lirith::Mesh.new
 
 
-scene.add( cube )
+#scene.add( cube )
 
-window.set_size(1024, 768)
+#window.set_size(1024, 768)
