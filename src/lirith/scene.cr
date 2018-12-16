@@ -1,8 +1,8 @@
 module Lirith
   class Scene < Object3D
-    property! :background
-    property! :fov
-    property! :aspect
+    property! background : Array(Float32)
+    property! fov : Float32
+    property! aspect : Float32
 
     #property! :horizontal_angle
     #property! :vertical_angle
@@ -11,9 +11,9 @@ module Lirith
     def initialize
       super
 
-      @background = [0, 0, 0.4, 1]
-      @fov = 45.to_f32
-      @aspect = (4.0/3.0).to_f32
+      @background = [0_f32, 0_f32, 0.4_f32, 1_f32]
+      @fov = 45_f32
+      @aspect = (4.0_f32/3.0_f32)
     end
 
   end

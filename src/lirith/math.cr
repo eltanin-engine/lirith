@@ -1,4 +1,5 @@
 require "./math/*"
+
 module Lirith
   module Math
     # Vectors
