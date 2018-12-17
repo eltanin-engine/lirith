@@ -3,7 +3,7 @@ module Lirith
   module Math
     struct TEuler(T) < TBase(T)
       @buffer : T*
-      
+
       buffer_property :x, 0
       buffer_property :y, 1
       buffer_property :z, 2
@@ -20,6 +20,16 @@ module Lirith
         self.y = y
         self.z = z
         @order = order || @order
+      end
+
+      def set(euler : self.class)
+        set(euler.x, euler.y, euler.z, euler.order)
+        self
+      end
+
+      def set(vector : TVector3(T), order = nil)
+        set(vector.x, vector.y, vector.z, order)
+        self
       end
 
       def to_vector3
