@@ -12,16 +12,20 @@ renderer = Lirith::Renderers::OpenGL.new( {width: 1024, height: 768, title: "Cry
 clock = Lirith::Clock.new
 camera = Lirith::Camera.new
 controls = Lirith::Controls::Fly.new(camera)
+euler = Lirith::Math::Euler.new(0_f32, 1_f32, 0_f32)
+p euler.x
+p euler.y
+p euler.z
 
-renderer.window.loop do
-  delta = clock.delta
+#renderer.window.loop do
+#  delta = clock.delta
 
 
-  LibGL.clear_color 0.to_f,0.to_f,1.to_f,0.to_f
-  LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
-  controls.update(delta)
-  renderer.render
-end
+#  LibGL.clear_color 0.to_f,0.to_f,1.to_f,0.to_f
+#  LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
+#  controls.update(delta)
+#  renderer.render
+#end
 
 
 

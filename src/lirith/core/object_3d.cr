@@ -1,8 +1,10 @@
 module Lirith
   class Object3D
-    property! :position
-    property! :quaternion #3d rotation
-    property! :scale
+    property position
+    property quaternion #3d rotation
+    property scale
+
+    property? visible
 
     property children : Array(Object3D) = [] of Object3D
 

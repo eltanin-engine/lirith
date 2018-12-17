@@ -1,13 +1,17 @@
 module Lirith
   module Math
-    struct TVector3(T)
+    struct TVector3(T) < TBase(T)
       @buffer : T*
+
+      buffer_property :x, 0
+      buffer_property :y, 1
+      buffer_property :z, 2
 
       def initialize(x, y, z)
         @buffer = Pointer(T).malloc(3)
-        @buffer[0] = x
-        @buffer[1] = y
-        @buffer[2] = z
+        self.x = x
+        self.y = y
+        self.z = z
       end
 
       def [](i : Int32)
@@ -16,30 +20,6 @@ module Lirith
 
       def []=(i : Int32, value)
         @buffer[i] = value
-      end
-
-      def x
-        @buffer[0]
-      end
-
-      def x=(value)
-        @buffer[0] = value
-      end
-
-      def y
-        @buffer[1]
-      end
-
-      def y=(value)
-        @buffer[1] = value
-      end
-
-      def z
-        @buffer[2]
-      end
-
-      def z=(value)
-        @buffer[2] = value
       end
 
       def +(v : TVector3(T))

@@ -9,5 +9,6 @@ module Lirith
     alias Matrix4 = TMatrix4(Float32)
 
     alias Quaternion = TQuaternion(Float32)
+    alias Euler = TEuler(Float32)
   end
 end

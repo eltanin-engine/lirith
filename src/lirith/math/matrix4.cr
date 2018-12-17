@@ -1,6 +1,6 @@
 module Lirith
   module Math
-    struct TMatrix4(T)
+    struct TMatrix4(T) < TBase(T)
       @buffer : T*
 
       def initialize
