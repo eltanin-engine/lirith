@@ -20,7 +20,7 @@ module Lirith
         self.w = w
       end
 
-      def set(quaternion : self.class)
+      def set(quaternion : TQuaternion(T))
         set(quaternion.x, quaternion.y, quaternion.z, quaternion.w)
       end
 
@@ -85,45 +85,44 @@ module Lirith
       end
 
       # https://github.com/mrdoob/three.js/blob/master/src/math/Quaternion.js#L404
-      def slerp(quaternion : self.class, t : Float32)
-        return self if t.zero?
-        return self.copy(quaternion) if t == 1_f32
+      def slerp(quaternion : TQuaternion(T), t : Float32)
+        return self if t == 0
+        return set(quaternion) if t == 1_f32
         x_cache, y_cache, z_cache, w_cache = x, y, z, w
 
         cos_half_theta = w_cache * quaternion.w + x_cache * quaternion.x + y_cache * quaternion.y + z_cache * quaternion.z
         if cos_half_theta < 0_f32
-          self.w = -quaternion.w
-          self.x = -quaternion.x
-          self.y = -quaternion.y
-          self.z = -quaternion.z
+          set( -quaternion.x, -quaternion.y, -quaternion.z, -quaternion.w )
           cos_half_theta = -cos_half_theta
         else
-          self.copy(quaternion)
+          set(quaternion)
         end
         if cos_half_theta >= 1_f32
-          self.w = w_cache
-          self.x = x_cache
-          self.y = y_cache
-          self.z = z_cache
+          set(x_cache, y_cache, z_cache, w_cache)
           return self
         end
 
         sin_half_theta = ::Math.sqrt(1_f32 - cos_half_theta * cos_half_theta)
         if sin_half_theta.abs < 0.001_f32
-          self.w = 0.5 * (w_cache + w)
-          self.x = 0.5 * (x_cache + x)
-          self.y = 0.5 * (y_cache + y)
-          self.z = 0.5 * (z_cache + z)
+          set(
+            (0.5 * (x_cache + x)).to_f32,
+            (0.5 * (y_cache + y)).to_f32,
+            (0.5 * (z_cache + z)).to_f32,
+            (0.5 * (w_cache + w)).to_f32
+          )
           return self
         end
 
         half_theta = ::Math.atan2(sin_half_theta, cos_half_theta)
-        ratio_a = ::Math.sin((1_f32 - t) * half_theta) / sin_half_theta,
+        ratio_a = ::Math.sin((1_f32 - t) * half_theta) / sin_half_theta
         ratio_b = ::Math.sin(t * half_theta) / sin_half_theta
-        self.w = (w_cache * ratio_a + w * ratio_b)
-        self.x = (x_cache * ratio_a + x * ratio_b)
-        self.y = (y_cache * ratio_a + y * ratio_b)
-        self.z = (z_cache * ratio_a + z * ratio_b)
+
+        set(
+          (x_cache * ratio_a + x * ratio_b).to_f32,
+          (y_cache * ratio_a + y * ratio_b).to_f32,
+          (z_cache * ratio_a + z * ratio_b).to_f32,
+          (w_cache * ratio_a + w * ratio_b).to_f32
+        )
         self
       end
 

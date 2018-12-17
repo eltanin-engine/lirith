@@ -10,10 +10,13 @@ targets:
 
 dependencies:
   opengl:
+    #path: ../opengl
     github: lirith-engine/opengl
   glfw:
+    #path: ../glfw
     github: lirith-engine/glfw
   glew:
+    #path: ../glew
     github: lirith-engine/glew
 
 crystal: 0.20.5

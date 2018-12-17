@@ -8,6 +8,7 @@ module Lirith
   # TODO Put your code here
 end
 
+if false
 renderer = Lirith::Renderers::OpenGL.new( {width: 1024, height: 768, title: "Crystal OpenGL"} )
 clock = Lirith::Clock.new
 camera = Lirith::Camera.new
@@ -18,10 +19,12 @@ quaternition = Lirith::Math::Quaternion.new(0_f32, 0_f32, 0_f32, 0_f32)
 euler.order = "XYZ"
 quaternition.set(euler)
 
+quaternition.slerp(quaternition, 0.01_f32)
 p quaternition.x
 p quaternition.y
 p quaternition.z
 p quaternition.w
+end
 
 #renderer.window.loop do
 #  delta = clock.delta
