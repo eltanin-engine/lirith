@@ -9,9 +9,13 @@ module Lirith
 
       def initialize(x, y, z)
         @buffer = Pointer(T).malloc(3)
-        self.x = x
-        self.y = y
-        self.z = z
+        set(x, y, z)
+      end
+
+      def set(x, y, z)
+        self.x = T.new(x)
+        self.y = T.new(y)
+        self.z = T.new(z)
       end
 
       def [](i : Int32)
@@ -31,11 +35,11 @@ module Lirith
       end
 
       def *(a)
-        Vector3(T).new(x * a, y * a, z * a)
+        TVector3(T).new(x * a, y * a, z * a)
       end
 
       def /(a)
-        Vector3(T).new(x / a, y / a, z / a)
+        TVector3(T).new(x / a, y / a, z / a)
       end
 
       def length
@@ -54,13 +58,17 @@ module Lirith
         )
       end
 
-      def dot(v : Vector3(T))
+      def dot(v : TVector3(T))
         x * v.x + y * v.y + z * v.z
       end
 
       def self.zero
         new T.zero, T.zero, T.zero
       end
+
+      #def self.new(x : Number+, y : Number+, z : Number+)
+      #  self.new(T.new(x), T.new(y), T.new(z))
+      #end
 
 
     end

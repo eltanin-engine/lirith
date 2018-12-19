@@ -14,10 +14,10 @@ module Lirith
       end
 
       def set(x, y, z, w)
-        self.x = x
-        self.y = y
-        self.z = z
-        self.w = w
+        self.x = T.new(x)
+        self.y = T.new(y)
+        self.z = T.new(z)
+        self.w = T.new(w)
       end
 
       def set(quaternion : TQuaternion(T))
@@ -124,6 +124,10 @@ module Lirith
           T.new(w_cache * ratio_a + w * ratio_b)
         )
         self
+      end
+
+      def self.zero
+        new T.zero, T.zero, T.zero, T.zero
       end
 
     end

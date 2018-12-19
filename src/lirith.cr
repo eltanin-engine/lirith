@@ -7,34 +7,92 @@ require "./lirith/*"
 module Lirith
   # TODO Put your code here
 end
+begin
 
-if false
-renderer = Lirith::Renderers::OpenGL.new( {width: 1024, height: 768, title: "Crystal OpenGL"} )
-clock = Lirith::Clock.new
-camera = Lirith::Camera.new
-controls = Lirith::Controls::Fly.new(camera)
-
-euler = Lirith::Math::Euler.new(1_f32, 1_f32, 0_f32)
-quaternition = Lirith::Math::Quaternion.new(0_f32, 0_f32, 0_f32, 0_f32)
-euler.order = "XYZ"
-quaternition.set(euler)
-
-quaternition.slerp(quaternition, 0.01_f32)
-p quaternition.x
-p quaternition.y
-p quaternition.z
-p quaternition.w
 end
 
-#renderer.window.loop do
-#  delta = clock.delta
+renderer = Lirith::Renderers::OpenGL.new( {width: 1024, height: 768, title: "Crystal OpenGL"} ) do |vertex_array_id, vertex_buffer, color_buffer|
+
+  cube = Lirith::Cube.new
+
+  LibGL.bind_vertex_array vertex_array_id
+
+  # Bind and set the VBO (vertex buffer object) data
+  LibGL.bind_buffer LibGL::E_ARRAY_BUFFER, vertex_buffer
+  LibGL.buffer_data(
+    LibGL::E_ARRAY_BUFFER,
+    cube.vertices.size * sizeof(Float32),
+    cube.vertices.to_unsafe.as(Pointer(Void)),
+    LibGL::E_STATIC_DRAW
+  )
+
+  LibGL.bind_buffer( LibGL::E_ARRAY_BUFFER, color_buffer)
+  LibGL.buffer_data(
+    LibGL::E_ARRAY_BUFFER,
+    cube.colors.size * sizeof(Float32),
+    cube.colors.to_unsafe.as(Pointer(Void)),
+    LibGL::E_STATIC_DRAW
+  )
+
+  # Enable and configure the attribute 0 for each vertex position
+  LibGL.enable_vertex_attrib_array 0_u32
+  LibGL.bind_buffer LibGL::E_ARRAY_BUFFER, vertex_buffer
+  LibGL.vertex_attrib_pointer 0_u32, 3, LibGL::E_FLOAT, 0_u8, 0, nil
+
+  LibGL.enable_vertex_attrib_array 1_u32
+  LibGL.bind_buffer LibGL::E_ARRAY_BUFFER, color_buffer
+  LibGL.vertex_attrib_pointer 1_u32, 3, LibGL::E_FLOAT, 0_u8, 0, nil
+
+  LibGL.enable LibGL::E_DEPTH_TEST
+  LibGL.depth_func LibGL::E_LESS
+end
+
+#clock = Lirith::Clock.new
+#camera = Lirith::Camera.new
+#controls = Lirith::Controls::Fly.new(camera)
+#scene = Lirith::Scene.new
 
 
-#  LibGL.clear_color 0.to_f,0.to_f,1.to_f,0.to_f
-#  LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
-#  controls.update(delta)
-#  renderer.render
-#end
+mvp = Lirith::Math::Matrix4.zero
+mvp_a = [1.81066,
+         0,
+         0.00159574,
+         0.00159255,
+         0,
+         2.41421,
+         0,
+         0,
+         0.00288356,
+         0,
+         -1.002,
+         -0.999999,
+         -0.0144178,
+         0,
+         4.8098,
+         4.99999]
+
+mvp_a.each_with_index { |e, i| mvp[i] = e.to_f32 }
+#@program.set_uniform_matrix_4f "MVP", 0_u8, mvp
+
+#p mvp[15]
+
+renderer.window.loop do
+  #delta = clock.delta
+
+  LibGL.clear_color 0.to_f,0.5.to_f,1.to_f,0.to_f
+  LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
+
+
+  renderer.render(mvp)
+
+
+  LibGL.draw_arrays LibGL::E_TRIANGLES, 0, 12*3
+
+end
+
+
+#LibGL.disable_vertex_attrib_array 0_u32
+#LibGL.disable_vertex_attrib_array 1_u32
 
 
 

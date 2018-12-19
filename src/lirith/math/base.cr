@@ -7,7 +7,7 @@ module Lirith
         end
 
         def {{name.id}}=(value)
-          @buffer[{{key}}] = value.as(T)
+          @buffer[{{key}}] = T.new(value)
         end
       end
     end

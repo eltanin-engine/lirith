@@ -11,7 +11,7 @@ module Lirith
     def initialize
       super
 
-      @background = [0_f32, 0_f32, 0.4_f32, 1_f32]
+      @background = [0_f32, 0.2_f32, 0.1_f32, 1_f32]
       @fov = 45_f32
       @aspect = (4.0_f32/3.0_f32)
     end

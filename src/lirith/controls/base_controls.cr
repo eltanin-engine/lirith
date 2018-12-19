@@ -4,7 +4,7 @@ module Lirith
       def initialize(@camera : Lirith::Camera)
       end
 
-      abstract def update(delta)
+      abstract def update(delta, scene)
     end
   end
 end

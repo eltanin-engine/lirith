@@ -1,16 +1,16 @@
 version: 1.0
 shards:
   glew:
-    github: lirith-engine/glew
-    commit: 008d6f4b9d0090ead882a0c6fc54e9b49898f886
+    path: ../glew
+    version: 0.1.0
 
   glfw:
-    github: lirith-engine/glfw
-    commit: 7cb6e0d8891e2857587655f3ba77dd5c6629dc9d
+    path: ../glfw
+    version: 0.1.0
 
   lib_gl:
-    github: Rinkana/lib_gl
-    commit: 230320c37ff5daed5f6e20cb1f3d90842f736b0f
+    path: ../lib_gl
+    version: 0.1.1
 
   lib_glew:
     github: lirith-engine/lib_glew
@@ -21,6 +21,6 @@ shards:
     commit: d24b4fb415398040b841dddccd471db206fdb291
 
   opengl:
-    github: lirith-engine/opengl
-    commit: d5d17b4728eedcf87398c3dfd73b772a05e9a40d
+    path: ../opengl
+    version: 0.1.0
 

@@ -7,6 +7,7 @@ module Lirith
 
       def initialize(@width = 1024, @height = 768, @title = "")
         @window = ::GLFW::Window.new(@width, @height, @title)
+        @window.set_context_current
       end
 
       def loop(&block)
