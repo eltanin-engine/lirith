@@ -49,7 +49,6 @@ end
 
 #clock = Lirith::Clock.new
 #camera = Lirith::Camera.new
-#controls = Lirith::Controls::Fly.new(camera)
 #scene = Lirith::Scene.new
 
 
@@ -72,23 +71,21 @@ mvp_a = [1.81066,
          4.99999]
 
 mvp_a.each_with_index { |e, i| mvp[i] = e.to_f32 }
-#@program.set_uniform_matrix_4f "MVP", 0_u8, mvp
 
-#p mvp[15]
-
-renderer.window.loop do
-  #delta = clock.delta
-
-  LibGL.clear_color 0.to_f,0.5.to_f,1.to_f,0.to_f
-  LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
-
-
-  renderer.render(mvp)
-
-
-  LibGL.draw_arrays LibGL::E_TRIANGLES, 0, 12*3
-
-end
+#renderer.window.controls = Lirith::Controls::Fly.new
+#renderer.window.loop do
+#  #delta = clock.delta
+#
+#  LibGL.clear_color 0.to_f,0.5.to_f,1.to_f,0.to_f
+#  LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
+#
+#
+#  renderer.render(mvp)
+#
+#
+#  LibGL.draw_arrays LibGL::E_TRIANGLES, 0, 12*3
+#
+#end
 
 
 #LibGL.disable_vertex_attrib_array 0_u32
