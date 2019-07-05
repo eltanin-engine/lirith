@@ -1,2 +1,6 @@
 require "./core/*"
-require "./models/*"
+
+module Lirith
+  module Core
+  end
+end
