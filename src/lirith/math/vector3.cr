@@ -3,9 +3,9 @@ module Lirith
     struct Vector3 < Base
         @buffer : Float32*
 
-        buffer_property :x, 0
-        buffer_property :y, 1
-        buffer_property :z, 2
+        buffer_property :x, 0, Float32
+        buffer_property :y, 1, Float32
+        buffer_property :z, 2, Float32
 
         def initialize(x, y, z)
             @buffer = Pointer(Float32).malloc(3)
@@ -23,7 +23,7 @@ module Lirith
         end
 
         def []=(i : Int32, value)
-            @buffer[i] = value
+            @buffer[i] = Float32.new(value)
         end
 
         def +(v : Vector3)
