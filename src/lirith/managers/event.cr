@@ -11,7 +11,7 @@ module Lirith
                     @callbacks[event] = [callback]
                 end
 
-                p "Callback for event '#{event}'' added"
+                p "Callback for event '#{event}' added"
             end
 
             def register(event, &callback : -> Nil)
