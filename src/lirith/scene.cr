@@ -1,5 +1,5 @@
 module Lirith
-    class Scene
-        property background_color = [0, 0, 0, 1]
+    class Scene < Lirith::Core::BaseObject
+        property background = [0, 0, 1, 1]
     end
 end

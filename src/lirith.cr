@@ -36,4 +36,4 @@ class TestApp < Lirith::Application
 end
 
 app = TestApp.new
-#app.run
+app.run
