@@ -3,7 +3,7 @@ module Lirith
     property name = ""
 
     property position
-    property quaternion #3d rotation
+    property quaternion # 3d rotation
     property scale
 
     property? visible = true

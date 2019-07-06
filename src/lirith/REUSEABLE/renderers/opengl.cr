@@ -1,11 +1,11 @@
 require "opengl"
+
 module Lirith
   module Renderers
     class OpenGL < BaseRenderer
-
       getter program_id
 
-      def initialize(settings = {} of Symbol => String|Int32|Float32, &block)
+      def initialize(settings = {} of Symbol => String | Int32 | Float32, &block)
         create_window
 
         LibGL.gen_vertex_arrays 1, out vertex_array_id
@@ -35,7 +35,7 @@ module Lirith
 
       def attach(shader)
         LibGL.attach_shader @program_id, shader.shader_id
-        #p LibGL.get_error.to_s(16)
+        # p LibGL.get_error.to_s(16)
       end
 
       def load_shaders
@@ -44,7 +44,7 @@ module Lirith
 
         [
           ::OpenGL::Shader.vertex(vertex_shader_code).compile,
-          ::OpenGL::Shader.fragment(fragment_shader_code).compile
+          ::OpenGL::Shader.fragment(fragment_shader_code).compile,
         ]
       end
 
@@ -58,12 +58,11 @@ module Lirith
           {info_log_length, info_log_length}
         end
         raise "Error linking shader program: #{info_log}" unless result
-        
       end
 
       def render(mvp)
         LibGL.use_program @program_id
-        
+
         ::OpenGL.debug do
           LibGL.get_programiv @program_id, LibGL::E_LINK_STATUS, out linked
         end

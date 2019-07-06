@@ -1,6 +1,6 @@
 module Lirith
   module Math
-    abstract struct Base
+    abstract struct TBase(T)
       macro buffer_property(name, key)
         def {{name.id}}
           @buffer[{{key}}]

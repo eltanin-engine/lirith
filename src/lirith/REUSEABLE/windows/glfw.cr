@@ -1,4 +1,5 @@
 require "glfw"
+
 module Lirith
   module Windows
     class GLFW < BaseWindow

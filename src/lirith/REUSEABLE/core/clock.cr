@@ -40,7 +40,5 @@ module Lirith
 
       diff
     end
-
-
   end
 end

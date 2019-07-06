@@ -1,15 +1,15 @@
-#require "lib_glew"
-#require "glfw"
+# require "lib_glew"
+# require "glfw"
 require "./lirith/*"
 require "lib_glfw"
 require "lib_gl"
-#require "lib_glew"
+
+# require "lib_glew"
 
 module Lirith
 end
 
-
-class TestApp < Lirith::Application
+class TestApp < Lirith::BaseApp
 end
 
 app = TestApp.new

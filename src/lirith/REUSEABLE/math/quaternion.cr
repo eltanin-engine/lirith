@@ -65,7 +65,6 @@ module Lirith
           self.z = c1 * c2 * s3 + s1 * s2 * c3
           self.w = c1 * c2 * c3 + s1 * s2 * s3
         end
-
       end
 
       def [](i : Int32)
@@ -92,7 +91,7 @@ module Lirith
 
         cos_half_theta = w_cache * quaternion.w + x_cache * quaternion.x + y_cache * quaternion.y + z_cache * quaternion.z
         if cos_half_theta < 0.0
-          set( -quaternion.x, -quaternion.y, -quaternion.z, -quaternion.w )
+          set(-quaternion.x, -quaternion.y, -quaternion.z, -quaternion.w)
           cos_half_theta = -cos_half_theta
         else
           set(quaternion)
@@ -129,7 +128,6 @@ module Lirith
       def self.zero
         new T.zero, T.zero, T.zero, T.zero
       end
-
     end
   end
 end

@@ -1,0 +1,9 @@
+module Lirith
+  module Application
+    module Systems
+      class Scene < Base
+        property background = [0, 0, 1, 1]
+      end
+    end
+  end
+end

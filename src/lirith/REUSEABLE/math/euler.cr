@@ -1,4 +1,5 @@
 require "./macros"
+
 module Lirith
   module Math
     struct TEuler(T) < TBase(T)
@@ -35,7 +36,6 @@ module Lirith
       def to_vector3
         TVector3(T).new(x, y, z)
       end
-
     end
   end
 end

@@ -66,10 +66,9 @@ module Lirith
         new T.zero, T.zero, T.zero
       end
 
-      #def self.new(x : Number+, y : Number+, z : Number+)
+      # def self.new(x : Number+, y : Number+, z : Number+)
       #  self.new(T.new(x), T.new(y), T.new(z))
-      #end
-
+      # end
 
     end
   end

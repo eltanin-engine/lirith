@@ -1,14 +1,15 @@
 require "lib_glfw"
+
 module Lirith
   module Controls
     class Fly < BaseControls
       property speed = 3_f32
       property mouse_speed = 0.05_f32
 
-      #def initialize
+      # def initialize
       #  @window = 1
       #  GLFW.get_cursor_pos @window, out @last_xpos, out @last_ypos
-      #end
+      # end
 
       def key_press(key)
         case key
@@ -26,14 +27,14 @@ module Lirith
       def update(delta, scene)
         # ??
       end
-      #def update(delta, scene)
+      # def update(delta, scene)
       #  scene.horizontal_angle += mouse_speed * delta * (@last_xpos - xpos)
       #  scene.vertical_angle += mouse_speed * delta * (@last_ypos - ypos)
 
       #  @last_xpos = xpos
       #  @last_ypos = ypos
 
-        # process keys
+      # process keys
       #  if GLFW.get_key(@window, GLFW::KEY_W) == GLFW::PRESS
       #    @scene.position += @scene.direction * delta_time * @speed
       #  end
@@ -46,7 +47,7 @@ module Lirith
       #  if GLFW.get_key(@window, GLFW::KEY_D) == GLFW::PRESS
       #    @scene.position += @scene.right * delta_time * @speed
       #  end
-      #end
+      # end
     end
   end
 end
