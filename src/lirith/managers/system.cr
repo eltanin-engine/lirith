@@ -1,12 +1,13 @@
 module Lirith
   module Managers
     class System
-      @systems = [] of Application::Systems::Base
+      @systems = [] of Core::Systems::Base
 
       def initialize
+        # register(Core::Systems::Application.new)
       end
 
-      def register(system : Application::Systems::Base)
+      def register(system : Core::Systems::Base)
         @systems << system
       end
 

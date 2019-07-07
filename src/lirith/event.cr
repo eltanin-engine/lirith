@@ -2,6 +2,7 @@ module Lirith
   enum Event
     # Application
     InitializationCompleted
+    ApplicationExit
 
     # Systems
 
@@ -9,9 +10,10 @@ module Lirith
     RenderStart
     RenderEnd
     RenderFinalize
+    RenderStopped
 
     # Window
     WindowOpen
-    WindowsClose
+    WindowClose
   end
 end

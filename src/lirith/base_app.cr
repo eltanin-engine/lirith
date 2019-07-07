@@ -3,6 +3,7 @@ module Lirith
     def initialize
       Managers::System.instance.register(Application::Systems::Console.new)
       Managers::System.instance.register(Application::Systems::Window.new)
+      Managers::System.instance.register(Application::Systems::Input.new)
       Managers::System.instance.register(Application::Systems::Render.new)
       Managers::System.instance.register(Application::Systems::Clock.new)
       Managers::System.instance.register(Application::Systems::Scene.new)

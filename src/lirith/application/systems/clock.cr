@@ -1,7 +1,7 @@
 module Lirith
   module Application
     module Systems
-      class Clock < Base
+      class Clock < Core::Systems::Base
       end
     end
   end

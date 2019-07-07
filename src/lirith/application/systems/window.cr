@@ -1,13 +1,13 @@
 module Lirith
   module Application
     module Systems
-      class Window < Base
+      class Window < Core::Systems::Base
         def initialize
-          @window = Core::Windows::GLFW.new
         end
 
         def shut_down
           LibGLFW.terminate
+          Managers::System.trigger_event(Event::WindowClose)
 
           true
         end
@@ -17,13 +17,15 @@ module Lirith
         end
 
         def swap_buffers
-          @window.swap_buffers
+          Application::CORE.window.swap_buffers
+          # @window.swap_buffers
         end
 
         def handle_event(event)
           case event
           when Event::RenderStart   ; update
           when Event::RenderFinalize; swap_buffers
+          when Event::RenderStopped ; shut_down
           end
         end
       end
