@@ -8,12 +8,17 @@ module Lirith
 
     # # Render
     RenderStart
-    RenderEnd
-    RenderFinalize
+    RenderPaintStart
+    RenderPaintEnd
+    RenderPaintFinalize
     RenderStopped
 
     # Window
     WindowOpen
     WindowClose
+
+    # Console
+    ConsoleAskCommand
+    ConsoleToggleLog
   end
 end

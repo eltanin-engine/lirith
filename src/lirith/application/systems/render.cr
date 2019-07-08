@@ -10,12 +10,13 @@ module Lirith
 
         def run
           @running = true
+          Managers::System.trigger_event(Event::RenderStart)
 
           while (@running)
-            Managers::System.trigger_event(Event::RenderStart)
+            Managers::System.trigger_event(Event::RenderPaintStart)
 
-            Managers::System.trigger_event(Event::RenderEnd)
-            Managers::System.trigger_event(Event::RenderFinalize)
+            Managers::System.trigger_event(Event::RenderPaintEnd)
+            Managers::System.trigger_event(Event::RenderPaintFinalize)
           end
 
           Managers::System.trigger_event(Event::RenderStopped)

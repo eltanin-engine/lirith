@@ -23,9 +23,9 @@ module Lirith
 
         def handle_event(event)
           case event
-          when Event::RenderStart   ; update
-          when Event::RenderFinalize; swap_buffers
-          when Event::RenderStopped ; shut_down
+          when Event::RenderPaintStart   ; update
+          when Event::RenderPaintFinalize; swap_buffers
+          when Event::RenderStopped      ; shut_down
           end
         end
       end
