@@ -20,5 +20,9 @@ module Lirith
     # Console
     ConsoleAskCommand
     ConsoleToggleLog
+
+    # Clocks
+    GameClockStart
+    GameClockStop
   end
 end

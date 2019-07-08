@@ -12,8 +12,8 @@ dependencies:
   opengl:
     path: ../opengl
     #github: lirith-engine/opengl
-  glfw:
-    path: ../glfw
+  lib_glfw:
+    path: ../lib_glfw
     #github: lirith-engine/glfw
   glew:
     path: ../glew

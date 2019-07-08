@@ -6,3 +6,4 @@ module Lirith
 end
 
 require "./clocks/base"
+require "./clocks/game"

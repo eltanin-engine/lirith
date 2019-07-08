@@ -6,6 +6,11 @@ module Lirith
         property log = false
 
         def initialize
+          @ignore_events = [
+            Event::RenderPaintStart,
+            Event::RenderPaintEnd,
+            Event::RenderPaintFinalize,
+          ]
         end
 
         def get_command
@@ -19,8 +24,8 @@ module Lirith
         end
 
         def handle_event(event)
-          p event if @log
-          
+          p event if @log && !@ignore_events.includes?(event)
+
           case event
           when Event::ConsoleAskCommand; get_command
           when Event::ConsoleToggleLog ; @log = !@log

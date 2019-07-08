@@ -4,10 +4,6 @@ shards:
     path: ../glew
     version: 0.1.0
 
-  glfw:
-    path: ../glfw
-    version: 0.1.0
-
   lib_gl:
     path: ../lib_gl
     version: 0.1.1
@@ -17,8 +13,8 @@ shards:
     commit: 50773a1cd412a9f82f84a79b9663e284f27b6666
 
   lib_glfw:
-    github: lirith-engine/lib_glfw
-    commit: d24b4fb415398040b841dddccd471db206fdb291
+    path: ../lib_glfw
+    version: 0.1.1
 
   opengl:
     path: ../opengl

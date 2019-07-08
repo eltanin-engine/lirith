@@ -33,6 +33,10 @@ module Lirith
         @@instance ||= new
       end
 
+      def self.register(system : Core::Systems::Base)
+        self.instance.register(system)
+      end
+
       def self.trigger_event(event)
         self.instance.trigger_event(event)
       end

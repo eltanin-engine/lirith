@@ -22,7 +22,7 @@ module Lirith
         end
 
         def elapsed_time
-          get_delta
+          # get_delta
           @elapsed_time
         end
 
