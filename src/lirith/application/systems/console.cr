@@ -3,7 +3,7 @@ module Lirith
     module Systems
       class Console < Core::Systems::Base
         # property polling = false
-        property log = false
+        property log = true
 
         def initialize
           @ignore_events = [
@@ -23,7 +23,7 @@ module Lirith
           end
         end
 
-        def handle_event(event)
+        def handle_event(event, payload)
           p event if @log && !@ignore_events.includes?(event)
 
           case event

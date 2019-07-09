@@ -25,8 +25,8 @@ module Lirith
         end
       end
 
-      def trigger_event(event)
-        each { |system| system.handle_event(event) }
+      def trigger_event(event, payload = nil)
+        each { |system| system.handle_event(event, payload) }
       end
 
       def self.instance
@@ -37,8 +37,8 @@ module Lirith
         self.instance.register(system)
       end
 
-      def self.trigger_event(event)
-        self.instance.trigger_event(event)
+      def self.trigger_event(event, payload = nil)
+        self.instance.trigger_event(event, payload)
       end
     end
   end

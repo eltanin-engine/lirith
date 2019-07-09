@@ -22,7 +22,7 @@ module Lirith
           Managers::System.trigger_event(Event::RenderStopped)
         end
 
-        def handle_event(event)
+        def handle_event(event, payload)
           case event
           when Event::InitializationCompleted; run
           when Event::ApplicationExit        ; @running = false

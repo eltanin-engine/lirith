@@ -18,25 +18,10 @@ module Lirith
 
         set_current_context
 
-        #self.class.key_callback(handle) do |window, key, scancode, action, mods|
-        #  p key if action == LibGLFW::PRESS
-        #end
-      
-        #pr = ->Input.handle_key(LibGLFW::Window*, Int32, Int32, Int32, Int32)
-        #self.class.key_callback(handle, ->Input.handle_key(LibGLFW::Window*, Int32, Int32, Int32, Int32))
+        set_callbacks
 
-        #self.class.key_callback(handle, ->self.handle_key(LibGLFW::Window*, Int32, Int32, Int32, Int32))
-
-        #
-        pr = ->Lirith::Core::Window.handle_key(LibGLFW::Window*, Int32, Int32, Int32, Int32)
-        p typeof(pr)
-        self.class.key_callback(handle,  pr)
-       Managers::System.trigger_event(Event::WindowOpen)
-       puts "OpenGL version: " + String.new(LibGL.get_string(LibGL::E_VERSION))
-      end
-
-      def self.handle_key(window : LibGLFW::Window*, key : Int32, scancode : Int32, action : Int32, mods : Int32) : Nil
-        p key if action == LibGLFW::PRESS
+        Managers::System.trigger_event(Event::WindowOpen)
+        puts "OpenGL version: " + String.new(LibGL.get_string(LibGL::E_VERSION))
       end
 
       def handle : LibGLFW::Window
@@ -45,6 +30,10 @@ module Lirith
         else
           raise "No handle is set"
         end
+      end
+
+      def set_callbacks
+        self.class.key_callback(handle, ->Input.handle_key(LibGLFW::Window*, Int32, Int32, Int32, Int32))
       end
 
       def swap_buffers
@@ -58,14 +47,8 @@ module Lirith
       end
 
       def self.key_callback(handle : LibGLFW::Window, callback : Proc(LibGLFW::Window*, Int32, Int32, Int32, Int32, Void))
-        #p typeof(callback)
         LibGLFW.set_key_callback(handle, callback)
       end
-      
-      #def self.key_callback(handle : LibGLFW::Window, &callback : LibGLFW::Window*, Int32, Int32, Int32, Int32 ->)
-      #  p typeof(callback)
-        #LibGLFW.set_key_callback(handle, callback)
-      #end
     end
   end
 end

@@ -21,7 +21,7 @@ module Lirith
           # @window.swap_buffers
         end
 
-        def handle_event(event)
+        def handle_event(event, payload)
           case event
           when Event::RenderPaintStart   ; update
           when Event::RenderPaintFinalize; swap_buffers

@@ -4,15 +4,6 @@ module Lirith
     InitializationCompleted
     ApplicationExit
 
-    # Systems
-
-    # # Render
-    RenderStart
-    RenderPaintStart
-    RenderPaintEnd
-    RenderPaintFinalize
-    RenderStopped
-
     # Window
     WindowOpen
     WindowClose
@@ -24,5 +15,18 @@ module Lirith
     # Clocks
     GameClockStart
     GameClockStop
+
+    # Input
+    InputKeyRelease
+    InputKeyPress
+
+    # Systems
+
+    # # Render
+    RenderStart
+    RenderPaintStart
+    RenderPaintEnd
+    RenderPaintFinalize
+    RenderStopped
   end
 end
