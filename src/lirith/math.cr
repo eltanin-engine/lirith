@@ -3,4 +3,6 @@ module Lirith
   end
 end
 
-require "./math/*"
+require "./math/base"
+require "./math/color"
+require "./math/vector3"
