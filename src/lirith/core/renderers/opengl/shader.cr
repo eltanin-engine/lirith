@@ -19,7 +19,7 @@ module Lirith
 
             LibGL.get_shaderiv @id, LibGL::E_COMPILE_STATUS, out result
 
-            unless result
+            if result == 0
               LibGL.get_shaderiv @id, LibGL::E_INFO_LOG_LENGTH, out info_log_length
 
               info_log = String.new(info_log_length) do |buffer|

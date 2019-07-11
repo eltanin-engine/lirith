@@ -13,7 +13,6 @@ module Lirith
         getter running = false
 
         def initialize
-          @renderer = Core::Renderers::OpenGL.new
         end
 
         def run
@@ -24,6 +23,11 @@ module Lirith
             Managers::System.trigger_event(Event::PaintStart)
 
             Managers::System.trigger_event(Event::PaintEnd)
+
+            Lirith::Application::CORE.renderer.render(Lirith::Application::CORE.scene)
+            LibGL.polygon_mode( LibGL::E_FRONT_AND_BACK, LibGL::E_LINE );
+            LibGL.draw_arrays LibGL::E_TRIANGLES, 0, 12*3
+
             Managers::System.trigger_event(Event::PaintFinalize)
           end
 

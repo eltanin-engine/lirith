@@ -13,3 +13,4 @@ module Lirith
 end
 
 require "./application/*"
+require "./models/*"
