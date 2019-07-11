@@ -8,7 +8,7 @@ module Lirith
       Managers::System.instance.register(Application::Systems::Clock.new)
       Managers::System.instance.register(Application::Systems::Scene.new)
 
-      Managers::System.trigger_event(Event::InitializationCompleted)
+      Managers::System.trigger_event(Application::Event::InitializationCompleted)
     end
 
     def run
@@ -27,7 +27,7 @@ module Lirith
     end
 
     def shut_down
-      Managers::System.instance.get(Core::Systems::Window).shut_down
+      Managers::System.instance.get(Systems::Window).shut_down
     end
   end
 end

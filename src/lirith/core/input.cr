@@ -42,10 +42,15 @@ module Lirith
         KeyEscape      = LibGLFW::KEY_ESCAPE
       end
 
+      enum Event
+        KeyPress
+        KeyRelease
+      end
+
       def self.handle_key(window : LibGLFW::Window*, key : Int32, scancode : Int32, action : Int32, mods : Int32) : Void
         case action
-        when LibGLFW::PRESS  ; Managers::System.trigger_event(Event::InputKeyPress, Keys.new(key))
-        when LibGLFW::RELEASE; Managers::System.trigger_event(Event::InputKeyRelease, Keys.new(key))
+        when LibGLFW::PRESS  ; Managers::System.trigger_event(Event::KeyPress, Keys.new(key))
+        when LibGLFW::RELEASE; Managers::System.trigger_event(Event::KeyRelease, Keys.new(key))
         end
       end
     end

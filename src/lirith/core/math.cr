@@ -1,5 +1,7 @@
 module Lirith
-  module Math
+  module Core
+    module Math
+    end
   end
 end
 

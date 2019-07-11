@@ -2,12 +2,16 @@ module Lirith
   module Application
     module Systems
       class Window < Core::Systems::Base
+        enum Event
+          Close
+        end
+
         def initialize
         end
 
         def shut_down
           LibGLFW.terminate
-          Managers::System.trigger_event(Event::WindowClose)
+          Managers::System.trigger_event(Event::Close)
 
           true
         end
@@ -23,9 +27,9 @@ module Lirith
 
         def handle_event(event, payload)
           case event
-          when Event::RenderPaintStart   ; update
-          when Event::RenderPaintFinalize; swap_buffers
-          when Event::RenderStopped      ; shut_down
+          when Render::Event::PaintStart   ; update
+          when Render::Event::PaintFinalize; swap_buffers
+          when Render::Event::Stopped      ; shut_down
           end
         end
       end

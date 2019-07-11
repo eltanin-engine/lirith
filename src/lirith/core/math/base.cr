@@ -1,7 +1,8 @@
 module Lirith
-  module Math
-    abstract struct Base
-      macro buffer_property(name, key, type)
+  module Core
+    module Math
+      abstract struct Base
+        macro buffer_property(name, key, type)
         def {{name.id}}
           @buffer[{{key}}]
         end
@@ -9,6 +10,7 @@ module Lirith
         def {{name.id}}=(value)
           @buffer[{{key}}] = {{type}}.new(value)
         end
+      end
       end
     end
   end

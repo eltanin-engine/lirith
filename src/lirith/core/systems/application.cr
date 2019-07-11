@@ -14,8 +14,8 @@ module Lirith
 
         def handle_event(event, payload)
           case event
-          when Event::GameClockStart; game_clock.start
-          when Event::GameClockStop ; game_clock.stop
+          when Core::Clocks::Event::Start; game_clock.start
+          when Core::Clocks::Event::Stop ; game_clock.stop
           end
         end
       end

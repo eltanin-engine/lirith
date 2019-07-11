@@ -1,5 +1,7 @@
 module Lirith
-  module Managers
+  module Core
+    module Managers
+    end
   end
 end
 

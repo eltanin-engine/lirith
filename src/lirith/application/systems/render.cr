@@ -2,6 +2,14 @@ module Lirith
   module Application
     module Systems
       class Render < Core::Systems::Base
+        enum Event
+          Start
+          PaintStart
+          PaintEnd
+          PaintFinalize
+          Stopped
+        end
+
         getter running = false
 
         def initialize
@@ -10,22 +18,22 @@ module Lirith
 
         def run
           @running = true
-          Managers::System.trigger_event(Event::RenderStart)
+          Managers::System.trigger_event(Event::Start)
 
           while (@running)
-            Managers::System.trigger_event(Event::RenderPaintStart)
+            Managers::System.trigger_event(Event::PaintStart)
 
-            Managers::System.trigger_event(Event::RenderPaintEnd)
-            Managers::System.trigger_event(Event::RenderPaintFinalize)
+            Managers::System.trigger_event(Event::PaintEnd)
+            Managers::System.trigger_event(Event::PaintFinalize)
           end
 
-          Managers::System.trigger_event(Event::RenderStopped)
+          Managers::System.trigger_event(Event::Stopped)
         end
 
         def handle_event(event, payload)
           case event
-          when Event::InitializationCompleted; run
-          when Event::ApplicationExit        ; @running = false
+          when Application::Event::InitializationCompleted; run
+          when Application::Event::Exit                   ; @running = false
           end
         end
       end

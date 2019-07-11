@@ -1,5 +1,5 @@
 module Lirith
-  enum Event
+  enum Eventz
     # Application
     InitializationCompleted
     ApplicationExit
