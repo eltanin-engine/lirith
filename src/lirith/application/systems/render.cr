@@ -18,14 +18,15 @@ module Lirith
         def run
           @running = true
           Managers::System.trigger_event(Event::Start)
+          Managers::System.trigger_event(Events::RenderAction.new(Event::Start))
 
           while (@running)
             Managers::System.trigger_event(Event::PaintStart)
 
             Managers::System.trigger_event(Event::PaintEnd)
 
-            Lirith::Application::CORE.renderer.render(Lirith::Application::CORE.scene)
-            LibGL.polygon_mode( LibGL::E_FRONT_AND_BACK, LibGL::E_LINE );
+            Lirith::Application::CORE.renderer.render(Lirith::Application::CORE.scene, Lirith::Application::CORE.camera)
+            LibGL.polygon_mode(LibGL::E_FRONT_AND_BACK, LibGL::E_LINE)
             LibGL.draw_arrays LibGL::E_TRIANGLES, 0, 12*3
 
             Managers::System.trigger_event(Event::PaintFinalize)

@@ -44,7 +44,7 @@ module Lirith
         end
 
         def length
-          Math.sqrt(x * x + y * y + z * z)
+          ::Math.sqrt(x * x + y * y + z * z)
         end
 
         def normalize
@@ -61,6 +61,10 @@ module Lirith
 
         def dot(v : Vector3)
           x * v.x + y * v.y + z * v.z
+        end
+
+        def to_unsafe
+          @buffer
         end
 
         def self.zero

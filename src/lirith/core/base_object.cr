@@ -1,5 +1,5 @@
 module Lirith
-  module Application
+  module Core
     class BaseObject
       property position = Math::Vector3.zero
       property quaternation = "need to implement"

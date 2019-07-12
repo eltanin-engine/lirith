@@ -6,12 +6,14 @@ module Lirith
         getter game_clock
         getter scene
         getter renderer
+        getter camera
 
         def initialize
           @window = Window.new
           @game_clock = Clocks::Game.new
           @scene = Scene.new
           @renderer = Core::Renderers::OpenGL.new
+          @camera = Camera.new
 
           Managers::System.register(self)
         end

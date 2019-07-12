@@ -45,9 +45,12 @@ module Lirith
           LibGL.depth_func LibGL::E_LESS
         end
 
-        def handle_event(event, payload)
+        def handle_event(event)
           case event
-          when Render::Event::Start; load_model
+          when Application::Events::RenderAction
+            case event.action
+            when Render::Event::Start; load_model
+            end
           end
         end
       end

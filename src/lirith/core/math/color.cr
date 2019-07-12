@@ -2,12 +2,19 @@ module Lirith
   module Core
     module Math
       struct Color < Base
-        property red : Float32
-        property green : Float32
-        property blue : Float32
-        property alpha : Float32
+        @buffer : Float32*
 
-        def initialize(@red, @green, @blue, @alpha = Float32.new(1))
+        buffer_property :red, 0, Float32
+        buffer_property :green, 1, Float32
+        buffer_property :blue, 2, Float32
+        buffer_property :alpha, 3, Float32
+
+        def initialize(red, green, blue, alpha = Float32.new(1))
+          @buffer = Pointer(Float32).malloc(4)
+          @buffer[0] = red
+          @buffer[1] = green
+          @buffer[2] = blue
+          @buffer[3] = alpha
         end
 
         def self.from_hex(hex : Int32)

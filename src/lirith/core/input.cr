@@ -12,10 +12,10 @@ module Lirith
         Key7           = LibGLFW::KEY_7
         Key8           = LibGLFW::KEY_8
         Key9           = LibGLFW::KEY_9
-        KeyA           = LibGLFW::KEY_A
+        A           = LibGLFW::KEY_A
         KeyB           = LibGLFW::KEY_B
         KeyC           = LibGLFW::KEY_C
-        KeyD           = LibGLFW::KEY_D
+        D           = LibGLFW::KEY_D
         KeyE           = LibGLFW::KEY_E
         KeyF           = LibGLFW::KEY_F
         KeyG           = LibGLFW::KEY_G
@@ -30,11 +30,11 @@ module Lirith
         KeyP           = LibGLFW::KEY_P
         KeyQ           = LibGLFW::KEY_Q
         KeyR           = LibGLFW::KEY_R
-        KeyS           = LibGLFW::KEY_S
+        S           = LibGLFW::KEY_S
         KeyT           = LibGLFW::KEY_T
         KeyU           = LibGLFW::KEY_U
         KeyV           = LibGLFW::KEY_V
-        KeyW           = LibGLFW::KEY_W
+        W           = LibGLFW::KEY_W
         KeyX           = LibGLFW::KEY_X
         KeyY           = LibGLFW::KEY_Y
         KeyZ           = LibGLFW::KEY_Z
@@ -49,7 +49,9 @@ module Lirith
 
       def self.handle_key(window : LibGLFW::Window*, key : Int32, scancode : Int32, action : Int32, mods : Int32) : Void
         case action
-        when LibGLFW::PRESS  ; Managers::System.trigger_event(Event::KeyPress, Keys.new(key))
+        when LibGLFW::PRESS
+          Managers::System.trigger_event(Event::KeyPress, Keys.new(key))
+          Managers::System.trigger_event(Events::Input::KeyPressed.new(Keys.new(key)))
         when LibGLFW::RELEASE; Managers::System.trigger_event(Event::KeyRelease, Keys.new(key))
         end
       end
