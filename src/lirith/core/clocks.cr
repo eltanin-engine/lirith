@@ -1,10 +1,6 @@
 module Lirith
   module Core
     module Clocks
-      enum Event
-        Start
-        Stop
-      end
     end
   end
 end

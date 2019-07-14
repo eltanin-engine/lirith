@@ -47,10 +47,7 @@ module Lirith
 
         def handle_event(event)
           case event
-          when Application::Events::RenderAction
-            case event.action
-            when Render::Event::Start; load_model
-            end
+          when Application::Events::Render::Started; load_model
           end
         end
       end

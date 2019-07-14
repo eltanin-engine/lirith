@@ -4,8 +4,8 @@ module Lirith
       class Input < Core::Systems::Base
         def handle_key_press(key)
           case key
-          when Core::Input::Keys::KeyGraveAccent; Managers::System.trigger_event(Console::Event::AskCommand)
-          when Core::Input::Keys::KeyEscape     ; Managers::System.trigger_event(Application::Event::Exit)
+          when Core::Input::Keys::KeyGraveAccent; Managers::System.trigger_event(Events::Console::RequestCommand)
+          when Core::Input::Keys::KeyEscape     ; Managers::System.trigger_event(Core::Events::Application::Exit)
 
           when Core::Input::Keys::W     ; Lirith::Application::CORE.camera.position.z -= 0.1
           when Core::Input::Keys::A     ; Lirith::Application::CORE.camera.position.x -= 0.1

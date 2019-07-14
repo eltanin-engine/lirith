@@ -18,11 +18,11 @@ module Lirith
           Managers::System.register(self)
         end
 
-        def handle_event(event, payload)
-          case event
-          when Core::Clocks::Event::Start; game_clock.start
-          when Core::Clocks::Event::Stop ; game_clock.stop
-          end
+        def handle_event(event)
+          # case event
+          # when Events::Clock::Start; game_clock.start && clock = game
+          # when Events::Clock::Stop ; game_clock.stop && clock = game
+          # end
         end
       end
     end

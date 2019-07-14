@@ -16,5 +16,4 @@ end
 class TestApp < Lirith::BaseApp
 end
 
-app = TestApp.new
-app.run
+TestApp.new

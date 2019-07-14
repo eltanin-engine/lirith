@@ -2,39 +2,32 @@ module Lirith
   module Application
     module Systems
       class Console < Core::Systems::Base
-        enum Event
-          AskCommand
-          ToggleLog
-        end
-
         # property polling = false
         property log = true
 
         def initialize
           @ignore_events = [
-            Render::Event::PaintStart,
-            Render::Event::PaintEnd,
-            Render::Event::PaintFinalize,
+            Events::Render::StartPaint,
+            Events::Render::EndPaint,
+            Events::Render::FinalizePaint
           ]
         end
 
         def get_command
           print "Command: "
           line = gets.to_s
-          if event = Event.parse?(line)
-            Managers::System.trigger_event(event)
-          else
+          #if event = Event.parse?(line)
+          #  Managers::System.trigger_event(event)
+          #else
             p "Command '#{line}' was not found"
-          end
+          #end
         end
 
-        def handle_event(event, payload)
-          p "#{event.class}::#{event}" if @log && !@ignore_events.includes?(event)
-
+        def handle_event(event)
+          p event.info if @log && !@ignore_events.includes?(event.class)
           case event
-          when Event::AskCommand; get_command
-          when Event::ToggleLog ; @log = !@log
-            # when Event::RenderStopped; @polling = false
+          when Events::Console::RequestCommand; get_command
+          when Events::Console::ToggleLog ; @log = !@log
           end
         end
       end

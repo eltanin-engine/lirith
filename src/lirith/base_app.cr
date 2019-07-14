@@ -8,22 +8,7 @@ module Lirith
       Managers::System.instance.register(Application::Systems::Clock.new)
       Managers::System.instance.register(Application::Systems::Scene.new)
 
-      Managers::System.trigger_event(Application::Event::InitializationCompleted)
-    end
-
-    def run
-      # while true
-      #  Managers::System.trigger_event(Event::RenderStart)
-
-      #  break if LibGLFW.get_key(Managers::System.instance.get(Application::Systems::Window).handle, LibGLFW::KEY_ESCAPE) == LibGLFW::PRESS
-
-      #  renderer.render(Managers::System.instance.get(Application::Systems::Scene))
-      #  Managers::System.trigger_event(Event::RenderEnd)
-
-      #  Managers::System.trigger_event(Event::RenderFinalize)
-      # end
-
-      # shut_down
+      Managers::System.trigger_event(Core::Events::Application::Initialized)
     end
 
     def shut_down

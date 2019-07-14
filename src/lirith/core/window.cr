@@ -1,10 +1,6 @@
 module Lirith
   module Core
     class Window
-      enum Event
-        Open
-      end
-
       property height
       property width
       property title
@@ -24,7 +20,7 @@ module Lirith
 
         set_callbacks
 
-        Managers::System.trigger_event(Event::Open)
+        Managers::System.trigger_event(Events::Window::Opened)
         puts "OpenGL version: " + String.new(LibGL.get_string(LibGL::E_VERSION))
       end
 

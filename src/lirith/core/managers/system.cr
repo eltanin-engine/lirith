@@ -26,12 +26,12 @@ module Lirith
           end
         end
 
-        def trigger_event(event : Enum, payload = nil)
-          each { |system| system.handle_event(event, payload) }
-        end
-
         def trigger_event(event : Events::Base)
           each { |system| system.handle_event(event) }
+        end
+
+        def trigger_event(event_class : Class)
+          trigger_event(event_class.new)
         end
 
         def self.instance
@@ -42,12 +42,12 @@ module Lirith
           self.instance.register(system)
         end
 
-        def self.trigger_event(event : Enum, payload = nil)
-          self.instance.trigger_event(event, payload)
-        end
-
         def self.trigger_event(event : Events::Base)
           self.instance.trigger_event(event)
+        end
+
+        def self.trigger_event(event_class : Class)
+          self.instance.trigger_event(event_class)
         end
       end
     end

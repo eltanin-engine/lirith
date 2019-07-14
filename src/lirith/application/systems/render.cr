@@ -2,14 +2,6 @@ module Lirith
   module Application
     module Systems
       class Render < Core::Systems::Base
-        enum Event
-          Start
-          PaintStart
-          PaintEnd
-          PaintFinalize
-          Stopped
-        end
-
         getter running = false
 
         def initialize
@@ -17,28 +9,27 @@ module Lirith
 
         def run
           @running = true
-          Managers::System.trigger_event(Event::Start)
-          Managers::System.trigger_event(Events::RenderAction.new(Event::Start))
+          Managers::System.trigger_event(Events::Render::Started)
 
           while (@running)
-            Managers::System.trigger_event(Event::PaintStart)
+            Managers::System.trigger_event(Events::Render::StartPaint)
 
-            Managers::System.trigger_event(Event::PaintEnd)
+            Managers::System.trigger_event(Events::Render::EndPaint)
 
             Lirith::Application::CORE.renderer.render(Lirith::Application::CORE.scene, Lirith::Application::CORE.camera)
             LibGL.polygon_mode(LibGL::E_FRONT_AND_BACK, LibGL::E_LINE)
             LibGL.draw_arrays LibGL::E_TRIANGLES, 0, 12*3
 
-            Managers::System.trigger_event(Event::PaintFinalize)
+            Managers::System.trigger_event(Events::Render::FinalizePaint)
           end
 
-          Managers::System.trigger_event(Event::Stopped)
+          Managers::System.trigger_event(Events::Render::Stopped)
         end
 
-        def handle_event(event, payload)
+        def handle_event(event)
           case event
-          when Application::Event::InitializationCompleted; run
-          when Application::Event::Exit                   ; @running = false
+          when Core::Events::Application::Initialized; run
+          when Core::Events::Application::Exit       ; @running = false
           end
         end
       end

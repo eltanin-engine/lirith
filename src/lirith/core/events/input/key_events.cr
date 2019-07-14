@@ -7,6 +7,10 @@ module Lirith
 
           def initialize(@key)
           end
+
+          def info
+            "#{self.class} (#{@key})"
+          end
         end
 
         struct KeyPressed < KeyEvent
