@@ -1,11 +1,13 @@
 module Lirith
-  module Application
-    CORE = Core::Systems::Application.new
-    # def core
-    #    @@core ||= Systems::Application.new
-    # end
+  abstract class Application
+    def initialize
+      Managers::System.instance.register(Systems::Console.new)
+
+      setup
+
+      Managers::System.trigger_event(Events::Application::Initialized)
+    end
+
+    abstract def setup
   end
 end
-
-require "./application/*"
-require "./models/*"
