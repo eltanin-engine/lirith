@@ -1,13 +1,29 @@
 module Lirith
   module Math
     abstract struct Base
-      macro buffer_property(name, key, type)
-        def {{name.id}}
-          @buffer[{{key}}]
+      macro buffer(type, properties)
+        @buffer = Pointer({{type}}).malloc({{properties.size}})
+
+        {% for property, index in properties %}
+          def {{property.id}}
+            @buffer[{{index}}]
+          end
+
+          def {{property.id}}=(value)
+            @buffer[{{index}}] = {{type}}.new(value)
+          end
+        {% end %}
+
+        def to_unsafe
+          @buffer
         end
 
-        def {{name.id}}=(value)
-          @buffer[{{key}}] = {{type}}.new(value)
+        def to_slice
+          @buffer.as(UInt8*).to_slice(buffer_size)
+        end
+
+        def buffer_size
+          sizeof({{type}}) * {{properties.size}}
         end
       end
     end

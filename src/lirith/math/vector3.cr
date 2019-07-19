@@ -1,22 +1,19 @@
 module Lirith
   module Math
     struct Vector3 < Base
-      @buffer : Float32*
-
-      buffer_property :x, 0, Float32
-      buffer_property :y, 1, Float32
-      buffer_property :z, 2, Float32
+      buffer Float32, [x, y, z]
 
       def initialize(x, y, z)
-        @buffer = Pointer(Float32).malloc(3)
-        set(x, y, z)
+        self.x = x
+        self.y = y
+        self.z = z
       end
 
-      def set(x, y, z)
-        self.x = Float32.new(x)
-        self.y = Float32.new(y)
-        self.z = Float32.new(z)
-      end
+      #def set(x, y, z)
+      #  self.x = Float32.new(x)
+      #  self.y = Float32.new(y)
+      #  self.z = Float32.new(z)
+      #end
 
       def [](i : Int32)
         @buffer[i]
@@ -60,10 +57,6 @@ module Lirith
 
       def dot(v : Vector3)
         x * v.x + y * v.y + z * v.z
-      end
-
-      def to_unsafe
-        @buffer
       end
 
       def self.zero

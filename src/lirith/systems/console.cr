@@ -4,21 +4,21 @@ module Lirith
       # property polling = false
       property log = true
 
-      def initialize
-        @ignore_events = [ # Events::Render::StartPaint,
-        # Events::Render::EndPaint,
-        # Events::Render::FinalizePaint,
-] of Events::Base
+      def initialize(@ignore_events = [] of Events::Base.class)
       end
 
       def get_command
         print "Command: "
         line = gets.to_s
-        # if event = Event.parse?(line)
-        #  Managers::System.trigger_event(event)
-        # else
-        p "Command '#{line}' was not found"
-        # end
+
+        handle_command(line)
+      end
+
+      def handle_command(command)
+        case command
+        when "exit"; Managers::System.trigger_event(Events::Application::Exit)
+        else; p "Command '#{command}' was not found"
+        end
       end
 
       def handle_event(event)

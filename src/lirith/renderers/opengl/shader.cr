@@ -1,6 +1,6 @@
 module Lirith
   module Renderers
-    class OpenGL
+    class OpenGL < Base
       class Shader
         getter :id
         getter :type

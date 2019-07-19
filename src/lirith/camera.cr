@@ -1,5 +1,5 @@
 module Lirith
-  class Camera < BaseObject
+  struct Camera < BaseObject
     property projection = Math::Matrix4.perspectiveFov(
       Float32.new(45),
       Float32.new(1.33333),

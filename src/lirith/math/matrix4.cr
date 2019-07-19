@@ -1,28 +1,12 @@
-1.8106579
-0.0
-0.0015957365
-0.0015925482
-0.0
-2.4142134
-0.0
-0.0
-0.0028835635
-0.0
--1.0020007
--0.99999875
--0.014417818
-0.0
-4.8098035
-4.999994
-
 module Lirith
   module Math
     struct Matrix4 < Base
-      @buffer : Float32*
-
-      def initialize
-        @buffer = Pointer(Float32).malloc(16)
-      end
+      buffer Float32, [
+        m00, m01, m02, m03,
+        m10, m11, m12, m13,
+        m20, m21, m22, m23,
+        m30, m31, m32, m33
+      ]
 
       def [](i : Int32)
         @buffer[i]
