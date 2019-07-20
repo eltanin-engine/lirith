@@ -1,3 +1,4 @@
+require "./base"
 require "./opengl/*"
 
 module Lirith
@@ -20,23 +21,26 @@ module Lirith
         @program.use
         @program.set_uniform_matrix_4f "MVP", 0_u8, camera.mvp
 
-        unless @once
+        #unless @once
           @once = true
           scene.children.each do |scene_obj|
-            if scene_obj.is_a?(Mesh)
-              attributes = ObjectAttributes.new
-              vertex_buffer = BufferAttribute.new
-              vertex_buffer.set(scene_obj.geometry.vertices)
-              attributes.buffers[:vertex] = vertex_buffer
+            if scene_obj.is_a?(Objects::Mesh)
+              if scene_obj.render_attributes.nil?
+                attributes = ObjectAttributes.new
+                vertex_buffer = BufferAttribute.new
+                vertex_buffer.set(scene_obj.geometry.vertices)
+                attributes.buffers[:vertex] = vertex_buffer
 
-              color_buffer = BufferAttribute.new
-              color_buffer.set(scene_obj.geometry.vertex_colors)
-              attributes.buffers[:color] = vertex_buffer
+                color_buffer = BufferAttribute.new
+                color_buffer.set(scene_obj.geometry.vertex_colors)
+                attributes.buffers[:color] = vertex_buffer
 
-              attributes.use
+                attributes.use
 
+                scene_obj.render_attributes = attributes
+              end
             end
-          end
+          #end
 
           LibGL.enable LibGL::E_DEPTH_TEST
           LibGL.depth_func LibGL::E_LESS

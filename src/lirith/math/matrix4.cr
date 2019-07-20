@@ -1,3 +1,5 @@
+require "./base"
+
 module Lirith
   module Math
     struct Matrix4 < Base

@@ -17,6 +17,9 @@ module Lirith
 
       struct KeyReleased < KeyEvent
       end
+
+      struct KeyRepeated < KeyEvent
+      end
     end
   end
 end

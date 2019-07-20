@@ -1,5 +1,8 @@
+require "./objects"
+
 module Lirith
-  struct Scene < BaseObject
+  class Scene
     property background_color = Math::Color.from_hex(0xffffff) # 0x282828
+    property children = [] of Objects::Base
   end
 end

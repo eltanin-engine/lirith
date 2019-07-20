@@ -45,6 +45,7 @@ module Lirith
       case action
       when LibGLFW::PRESS  ; Managers::System.trigger_event(Events::Input::KeyPressed.new(Keys.new(key)))
       when LibGLFW::RELEASE; Managers::System.trigger_event(Events::Input::KeyReleased.new(Keys.new(key)))
+      when LibGLFW::REPEAT; Managers::System.trigger_event(Events::Input::KeyPressed.new(Keys.new(key)))
       end
     end
   end

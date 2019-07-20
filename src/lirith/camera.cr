@@ -1,5 +1,7 @@
+require "./objects"
+
 module Lirith
-  struct Camera < BaseObject
+  class Camera < Objects::Base
     property projection = Math::Matrix4.perspectiveFov(
       Float32.new(45),
       Float32.new(1.33333),
@@ -11,7 +13,7 @@ module Lirith
     def initialize
       # @position.x = Float32.new(5)
       # @position.y = Float32.new(5)
-      @position.z = Float32.new(5)
+      @position.z = Float32.new(10)
     end
 
     def mvp
