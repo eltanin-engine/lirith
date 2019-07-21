@@ -11,11 +11,11 @@ module Lirith
         self.z = z
       end
 
-      #def set(x, y, z)
+      # def set(x, y, z)
       #  self.x = Float32.new(x)
       #  self.y = Float32.new(y)
       #  self.z = Float32.new(z)
-      #end
+      # end
 
       def [](i : Int32)
         @buffer[i]

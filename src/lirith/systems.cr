@@ -4,4 +4,3 @@ module Lirith
   module Systems
   end
 end
-

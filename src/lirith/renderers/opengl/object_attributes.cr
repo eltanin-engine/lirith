@@ -16,7 +16,7 @@ module Lirith
             buffer.use(index)
             index += 1_u32
           end
-          #LibGL.bind_vertex_array 0_u32
+          # LibGL.bind_vertex_array 0_u32
         end
       end
     end

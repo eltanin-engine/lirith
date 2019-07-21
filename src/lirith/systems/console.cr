@@ -19,7 +19,7 @@ module Lirith
       def handle_command(command)
         case command
         when "exit"; Managers::System.trigger_event(Events::Application::Exit)
-        else; p "Command '#{command}' was not found"
+        else         p "Command '#{command}' was not found"
         end
       end
 

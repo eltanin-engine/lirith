@@ -25,6 +25,10 @@ module Lirith
         def buffer_size
           sizeof({{type}}) * {{properties.size}}
         end
+
+        def inspect
+          "#{self.class}({{properties.map { |p| ("\#{" + p.stringify + "}").id }.splat}})"
+        end
       end
     end
   end
