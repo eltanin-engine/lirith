@@ -9,7 +9,7 @@ module Lirith
           LibGL.gen_buffers 1, out @buffer_id
         end
 
-        def set(vertices : Array(Math::Vector3))
+        def set(vertices : Array(Math::Base))
           vertices.each do |v|
             v.to_slice.each do |byte|
               @data << byte

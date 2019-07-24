@@ -27,12 +27,13 @@ module Lirith
           if scene_obj.is_a?(Objects::Mesh)
             if scene_obj.render_attributes.nil?
               attributes = ObjectAttributes.new
+
               vertex_buffer = BufferAttribute.new
-              vertex_buffer.set(scene_obj.geometry.vertices)
+              vertex_buffer.set(scene_obj.vertices.map(&.position))
               attributes.buffers[:vertex] = vertex_buffer
 
               color_buffer = BufferAttribute.new
-              color_buffer.set(scene_obj.geometry.vertex_colors)
+              color_buffer.set(scene_obj.vertices.map(&.color).compact)
               attributes.buffers[:color] = vertex_buffer
 
               attributes.use

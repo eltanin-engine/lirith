@@ -8,9 +8,10 @@ module Lirith
         Basic
       end
 
-      def load(file : File, format = Formats::Basic)
+      def load(file : File, format = Formats::Basic) : Objects::Mesh
         case format
         when Formats::Basic; load_basic(file)
+        else raise "Format unknown"
         end
       end
 
