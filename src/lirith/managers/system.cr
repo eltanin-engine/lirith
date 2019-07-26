@@ -39,6 +39,11 @@ module Lirith
         @halt = true
       end
 
+      def stop!
+        @halt = true
+        @event_channel.send(nil)
+      end
+
       def spawn_event_handler
         spawn do
           loop do
@@ -55,10 +60,6 @@ module Lirith
         @@instance ||= new
       end
 
-      def self.register(system : Systems::Base)
-        self.instance.register(system)
-      end
-
       def trigger_event(event : Events::Base)
         @event_queue << event
       end
@@ -68,7 +69,6 @@ module Lirith
       end
 
       def trigger_direct_event(event : Events::Base)
-        p event
         each { |system| system.handle_event(event) }
       end
 
@@ -76,7 +76,9 @@ module Lirith
         trigger_direct_event(event_class.new)
       end
 
-
+      def self.register(system : Systems::Base)
+        self.instance.register(system)
+      end
 
       def self.trigger_event(event : Events::Base)
         self.instance.trigger_event(event)
@@ -93,7 +95,6 @@ module Lirith
       def self.trigger_direct_event(event_class : Class)
         self.instance.trigger_direct_event(event_class)
       end
-
     end
   end
 end

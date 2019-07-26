@@ -28,7 +28,7 @@ module Lirith
       KeyO           = LibGLFW::KEY_O
       KeyP           = LibGLFW::KEY_P
       KeyQ           = LibGLFW::KEY_Q
-      KeyR           = LibGLFW::KEY_R
+      R              = LibGLFW::KEY_R
       S              = LibGLFW::KEY_S
       KeyT           = LibGLFW::KEY_T
       KeyU           = LibGLFW::KEY_U

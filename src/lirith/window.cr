@@ -17,6 +17,9 @@ module Lirith
 
       set_current_context
 
+      LibGLFW.set_input_mode @handle, LibGLFW::STICKY_KEYS, 1
+      # LibGLFW.set_input_mode @handle, LibGLFW::CURSOR, LibGLFW::CURSOR_DISABLED
+
       set_callbacks
 
       Managers::System.trigger_event(Events::Window::Opened)

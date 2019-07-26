@@ -11,14 +11,14 @@ module Lirith
       def load(file : File, format = Formats::Basic) : Objects::Mesh
         case format
         when Formats::Basic; load_basic(file)
-        else raise "Format unknown"
+        else                 raise "Format unknown"
         end
       end
 
       def load_basic(file)
         object = BasicFormat.from_json(file.gets_to_end)
 
-        mesh = Objects::Mesh.new(Geometry.new([] of Math::Vector3)) # Ugly for now
+        mesh = Objects::Mesh.new
 
         vector_count = object.vertices.size / 3
 

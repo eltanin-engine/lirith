@@ -10,42 +10,32 @@ module Lirith
         @program.attach Shader.from_file(LibGL::E_FRAGMENT_SHADER, "fragment_shader.glsl")
         @program.link
 
-        @once = false
+        LibGL.enable LibGL::E_DEPTH_TEST
+        LibGL.depth_func LibGL::E_LESS
         # Call shader delete after linking
       end
 
       def render(scene : Scene, camera : Camera)
-        LibGL.clear_color scene.background_color.red, scene.background_color.green, scene.background_color.blue, scene.background_color.alpha
+        # Check if it's the correct order.
+        # It used to be;
+        # Set scene color
+        # Clear LibGL bits
+        # Use program
+        # Set uniform
         LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
 
         @program.use
         @program.set_uniform_matrix_4f "MVP", 0_u8, camera.mvp
+        render(scene)
+      end
 
-        # unless @once
-        @once = true
-        scene.children.each do |scene_obj|
-          if scene_obj.is_a?(Objects::Mesh)
-            if scene_obj.render_attributes.nil?
-              attributes = ObjectAttributes.new
-
-              vertex_buffer = BufferAttribute.new
-              vertex_buffer.set(scene_obj.vertices.map(&.position))
-              attributes.buffers[:vertex] = vertex_buffer
-
-              color_buffer = BufferAttribute.new
-              color_buffer.set(scene_obj.vertices.map(&.color).compact)
-              attributes.buffers[:color] = vertex_buffer
-
-              attributes.use
-
-              scene_obj.render_attributes = attributes
-            end
-          end
-          # end
-
-          LibGL.enable LibGL::E_DEPTH_TEST
-          LibGL.depth_func LibGL::E_LESS
+      def render(object : Object)
+        case object
+        when Scene        ; Elements::Scene.render(object)
+        when Objects::Mesh; Elements::Mesh.render(object)
         end
+
+        object.children.each { |child| render(child) } if object.responds_to?(:children)
 
         if error = LibGL.get_error
           return nil if error == LibGL::E_NO_ERROR

@@ -1,7 +1,10 @@
-require "./objects"
+require "./renderer"
 
 module Lirith
-  class Camera < Objects::Base
+  class Camera
+    include Renderer::Renderable
+
+    property position = Math::Vector3.zero
     property projection = Math::Matrix4.perspectiveFov(
       Float32.new(45),
       Float32.new(1.33333),

@@ -1,5 +1,5 @@
 module Lirith
-  struct Vertex
+  class Vertex
     property position : Math::Vector3
     property color : Math::Color?
 
