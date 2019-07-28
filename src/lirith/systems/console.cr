@@ -13,12 +13,15 @@ module Lirith
         print "Command: "
         line = gets.to_s
 
-        handle_command(line)
+        command_data = line.split(' ')
+
+        handle_command(command_data.shift, command_data)
       end
 
-      def handle_command(command)
+      def handle_command(command : String, args = [] of String)
         case command
         when "exit"; Managers::System.trigger_event(Events::Application::Exit)
+        when "listMesh"; listMesh
         else         p "Command '#{command}' was not found"
         end
       end
@@ -29,6 +32,18 @@ module Lirith
         when Events::Console::RequestCommand; get_command
         when Events::Console::ToggleLog     ; @log = !@log
         end
+      end
+
+      def listMesh
+        Lirith.application.scene.children.each_with_index do |obj, index|
+          next unless obj.is_a?(Lirith::Objects::Mesh)
+
+          p "#{index} | #{obj.class}"
+        end
+      end
+
+      def updateMesh
+
       end
     end
   end

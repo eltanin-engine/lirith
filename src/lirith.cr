@@ -6,4 +6,5 @@ require "lib_gl"
 require "./lirith/*"
 
 module Lirith
+  class_property! application : Lirith::Application
 end

@@ -1,11 +1,20 @@
 module Lirith
   abstract class Application
+    getter window = Window.new
+    getter game_clock = Clocks::Game.new
+    getter scene = Scene.new
+    getter renderer = Renderers::OpenGL.new
+    getter camera = Camera.new
+
     def initialize
-      Lirith::Managers::System.instance.register(Systems::Core.new)
+      Lirith.application = self
+
+      Lirith::Managers::System.instance.register(Systems::Application.new)
 
       setup
 
       Managers::System.trigger_direct_event(Events::Application::Initialized)
+
       Managers::System.instance.run
     end
 

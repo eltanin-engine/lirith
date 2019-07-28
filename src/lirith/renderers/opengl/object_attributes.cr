@@ -15,12 +15,12 @@ module Lirith
 
         def use
           LibGL.bind_vertex_array @vertex_array_id
-          index = 0_u32
-          buffers.each do |key, buffer|
-            buffer.use(index)
-            index += 1_u32
-          end
-          # LibGL.bind_vertex_array 0_u32
+          buffers.values.each(&.use)
+        end
+
+        def close
+          buffers.values.each(&.close)
+          LibGL.bind_vertex_array 0_u32
         end
       end
     end
