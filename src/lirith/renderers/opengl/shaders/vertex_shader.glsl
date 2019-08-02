@@ -2,9 +2,9 @@
 
 // vertex input data
 layout(location = 0) in vec3 vertexPosition_modelspace;
-layout(location = 1) in vec3 vertexColor;
+layout(location = 1) in vec4 vertexColor;
 
-out vec3 fragmentColor;
+out vec4 fragmentColor;
 
 // model/view/projection matrix
 uniform mat4 MVP;

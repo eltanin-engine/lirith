@@ -21,6 +21,13 @@ module Lirith
           Float32.new(hex >> 0 & 255) / 255
         )
       end
+
+      def self.random
+        new(Random.rand.to_f32, Random.rand.to_f32, Random.rand.to_f32)
+      end
+
+      simple_initialize(black, 0f32, 0f32, 0f32)
+      simple_initialize(white, 1f32, 1f32, 1f32)
     end
   end
 end

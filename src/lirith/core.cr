@@ -13,7 +13,7 @@ module Lirith
       @renderer = Renderers::OpenGL.new
       @camera = Camera.new
 
-      #Managers::System.register(self)
+      # Managers::System.register(self)
     end
   end
 end

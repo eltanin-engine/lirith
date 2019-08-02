@@ -37,6 +37,7 @@ module Lirith
           )
         end
 
+        mesh.material = Materials::Base.new
         mesh
       end
 

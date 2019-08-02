@@ -6,12 +6,13 @@ module Lirith
           enum IndexType
             # MUST be the same as defined in the vertex shader
             Position = 0
-            Color = 1
+            Color    = 1
           end
 
           getter buffer_id
           getter data = [] of UInt8
           getter index_type : IndexType
+          getter property_size = 0
           getter? build = false
 
           def initialize(@index_type)
@@ -22,12 +23,15 @@ module Lirith
             LibGL.delete_buffers 1, pointerof(@buffer_id)
           end
 
-          def set(vertices : Array(Math::Base))
-            vertices.each do |v|
-              v.to_slice.each do |byte|
+          def set(elements : Array(Math::Base))
+            # retreive bytes and store them
+            elements.each do |e|
+              e.to_slice.each do |byte|
                 @data << byte
               end
             end
+
+            @property_size = typeof(elements[0]).property_size
           end
 
           def size
@@ -45,7 +49,7 @@ module Lirith
           end
 
           def build!
-            return if build?
+            return if @build
 
             LibGL.buffer_data(
               LibGL::E_ARRAY_BUFFER,
@@ -56,9 +60,9 @@ module Lirith
 
             LibGL.enable_vertex_attrib_array @index_type.value
             LibGL.bind_buffer LibGL::E_ARRAY_BUFFER, @buffer_id
-            LibGL.vertex_attrib_pointer @index_type.value, 3, LibGL::E_FLOAT, 0_u8, 0, nil
+            LibGL.vertex_attrib_pointer @index_type.value, @property_size, LibGL::E_FLOAT, 0_u8, 0, nil
 
-            build = true
+            # @build = true
           end
         end
       end

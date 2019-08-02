@@ -7,12 +7,18 @@ module Lirith
             if mesh.needs_update?
               attributes = ObjectAttributes.new
 
+              # Vertex buffer
               vertex_buffer = Attributes::Buffer.new(Attributes::Buffer::IndexType::Position)
               vertex_buffer.set(mesh.vertices.map(&.position))
               attributes.buffers[:vertex] = vertex_buffer
 
+              # Color Buffer
               color_buffer = Attributes::Buffer.new(Attributes::Buffer::IndexType::Color)
-              color_buffer.set(mesh.vertices.map(&.color).compact)
+              if material = mesh.material
+                color_buffer.set([material.color] * mesh.vertices.size)
+              else
+                color_buffer.set(mesh.vertices.map(&.color).compact)
+              end
               attributes.buffers[:color] = color_buffer
 
               mesh.render_attributes = attributes

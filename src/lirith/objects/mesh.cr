@@ -3,7 +3,8 @@ require "./base"
 module Lirith
   module Objects
     class Mesh < Base
-      property vertices = [] of Vertex
+      property vertices = Array(Vertex).new
+      property material : Materials::Base?
 
       def initialize
       end

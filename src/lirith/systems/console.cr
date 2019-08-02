@@ -20,9 +20,11 @@ module Lirith
 
       def handle_command(command : String, args = [] of String)
         case command
-        when "exit"; Managers::System.trigger_event(Events::Application::Exit)
-        when "listMesh"; listMesh
-        else         p "Command '#{command}' was not found"
+        when "exit"       ; Managers::System.trigger_event(Events::Application::Exit)
+        when "listMesh"   ; listMesh
+        when "randomColor"; randomColor
+        else
+          p "Command '#{command}' was not found"
         end
       end
 
@@ -42,8 +44,17 @@ module Lirith
         end
       end
 
-      def updateMesh
+      def randomColor
+        Lirith.application.scene.children.each_with_index do |obj, index|
+          next unless obj.is_a?(Lirith::Objects::Mesh)
+          if material = obj.material
+            material.color = Math::Color.random
+            obj.needs_update = true
+          end
+        end
+      end
 
+      def updateMesh
       end
     end
   end

@@ -1,8 +1,8 @@
 module Lirith
   module Managers
     class System
-      @systems = [] of Systems::Base
-      @event_queue = [] of Events::Base
+      @systems = Array(Systems::Base).new
+      @event_queue = Deque(Events::Base).new
 
       @event_channel = Channel(Nil).new
       @halt = false
