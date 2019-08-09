@@ -40,8 +40,63 @@ module Lirith
         new_matrix
       end
 
-      def to_unsafe
-        @buffer
+      def determinant
+        m03*m12*m21*m30 - m02*m13*m21*m30 - m03*m11*m22*m30 + m01*m13*m22*m30+
+        m02*m11*m23*m30 - m01*m12*m23*m30 - m03*m12*m20*m31 + m02*m13*m20*m31+
+        m03*m10*m22*m31 - m00*m13*m22*m31 - m02*m10*m23*m31 + m00*m12*m23*m31+
+        m03*m11*m20*m32 - m01*m13*m20*m32 - m03*m10*m21*m32 + m00*m13*m21*m32+
+        m01*m10*m23*m32 - m00*m11*m23*m32 - m02*m11*m20*m33 + m01*m12*m20*m33+
+        m02*m10*m21*m33 - m00*m12*m21*m33 - m01*m10*m22*m33 + m00*m11*m22*m33
+      end
+
+      def rotate(q : Quaternion)
+        self.m00 = 1 - ((q.y * (q.y + q.y)) + (q.z * (q.z + q.z)))
+        self.m01 = (q.x * (q.y + q.y)) + (q.w * (q.z + q.z))
+        self.m02 = (q.x * (q.z + q.z)) - (q.w * (q.y + q.y))
+        self.m03 = 0
+
+
+        self.m10 = (q.x * (q.y + q.y)) - (q.w * (q.z + q.z))
+        self.m11 = 1 - ( (q.x * (q.x + q.x)) + (q.z * (q.z + q.z)) )
+        self.m12 = (q.y * (q.z + q.z)) + (q.w * (q.x + q.x))
+        self.m13 = 0
+
+        self.m20 = (q.x * (q.z + q.z)) + (q.w * (q.y + q.y))
+        self.m21 = (q.y * (q.z + q.z)) - (q.w * (q.x + q.x))
+        self.m22 = 1 - ( (q.x * (q.x + q.x)) + (q.y * (q.y + q.y)) )
+        self.m23 = 0
+
+        self.m30 = 0
+        self.m31 = 0
+        self.m32 = 0
+        self.m33 = 1
+      end
+
+      def position(position : Vector3)
+        self.m30 = position.x
+        self.m31 = position.y
+        self.m32 = position.z
+      end
+
+      def scale(scale : Vector3)
+        self.m00 *= scale.x;
+        self.m01 *= scale.x;
+        self.m02 *= scale.x;
+        self.m03 *= scale.x;
+
+        self.m10 *= scale.y;
+        self.m11 *= scale.y;
+        self.m12 *= scale.y;
+        self.m13 *= scale.y;
+
+        self.m20 *= scale.z;
+        self.m21 *= scale.z;
+        self.m22 *= scale.z;
+        self.m23 *= scale.z;
+      end
+
+      def inverse
+        self.class.inverse(self)
       end
 
       def self.new(&block : Int32 -> Float32)
@@ -53,18 +108,6 @@ module Lirith
 
         matrix
       end
-
-      # def self.new(&block : (Int32, Int32) -> Float32)
-      #  matrix = self.new
-
-      #  0.upto(3) do |row|
-      #    0.upto(3) do |col|
-      #      buffer[row + (4 * col)] = yield row, col
-      #    end
-      #  end
-
-      #  matrix
-      # end
 
       def self.new(matrix : Array(Float32))
         raise ArgumentError.new("Given matrix array is not the correct size") unless matrix.size == 16
@@ -79,10 +122,10 @@ module Lirith
       def self.identity : Matrix4
         matrix = self.zero
 
-        matrix[0] = Float32.new(1)
-        matrix[5] = Float32.new(1)
-        matrix[10] = Float32.new(1)
-        matrix[15] = Float32.new(1)
+        matrix[0, 0] = Float32.new(1)
+        matrix[1, 1] = Float32.new(1)
+        matrix[2, 2] = Float32.new(1)
+        matrix[3, 3] = Float32.new(1)
 
         matrix
       end
@@ -137,6 +180,32 @@ module Lirith
         matrix[0, 3] = -x.dot(eye)
         matrix[1, 3] = -y.dot(eye)
         matrix[2, 3] = z.dot(eye)
+
+        matrix
+      end
+
+      def self.inverse(m)
+        matrix = self.zero
+
+        matrix.m00 = m.m12*m.m23*m.m31 - m.m13*m.m22*m.m31 + m.m13*m.m21*m.m32 - m.m11*m.m23*m.m32 - m.m12*m.m21*m.m33 + m.m11*m.m22*m.m33
+        matrix.m01 = m.m03*m.m22*m.m31 - m.m02*m.m23*m.m31 - m.m03*m.m21*m.m32 + m.m01*m.m23*m.m32 + m.m02*m.m21*m.m33 - m.m01*m.m22*m.m33
+        matrix.m02 = m.m02*m.m13*m.m31 - m.m03*m.m12*m.m31 + m.m03*m.m11*m.m32 - m.m01*m.m13*m.m32 - m.m02*m.m11*m.m33 + m.m01*m.m12*m.m33
+        matrix.m03 = m.m03*m.m12*m.m21 - m.m02*m.m13*m.m21 - m.m03*m.m11*m.m22 + m.m01*m.m13*m.m22 + m.m02*m.m11*m.m23 - m.m01*m.m12*m.m23
+
+        matrix.m10 = m.m13*m.m22*m.m30 - m.m12*m.m23*m.m30 - m.m13*m.m20*m.m32 + m.m10*m.m23*m.m32 + m.m12*m.m20*m.m33 - m.m10*m.m22*m.m33
+        matrix.m11 = m.m02*m.m23*m.m30 - m.m03*m.m22*m.m30 + m.m03*m.m20*m.m32 - m.m00*m.m23*m.m32 - m.m02*m.m20*m.m33 + m.m00*m.m22*m.m33
+        matrix.m12 = m.m03*m.m12*m.m30 - m.m02*m.m13*m.m30 - m.m03*m.m10*m.m32 + m.m00*m.m13*m.m32 + m.m02*m.m10*m.m33 - m.m00*m.m12*m.m33
+        matrix.m13 = m.m02*m.m13*m.m20 - m.m03*m.m12*m.m20 + m.m03*m.m10*m.m22 - m.m00*m.m13*m.m22 - m.m02*m.m10*m.m23 + m.m00*m.m12*m.m23
+
+        matrix.m20 = m.m11*m.m23*m.m30 - m.m13*m.m21*m.m30 + m.m13*m.m20*m.m31 - m.m10*m.m23*m.m31 - m.m11*m.m20*m.m33 + m.m10*m.m21*m.m33
+        matrix.m21 = m.m03*m.m21*m.m30 - m.m01*m.m23*m.m30 - m.m03*m.m20*m.m31 + m.m00*m.m23*m.m31 + m.m01*m.m20*m.m33 - m.m00*m.m21*m.m33
+        matrix.m22 = m.m01*m.m13*m.m30 - m.m03*m.m11*m.m30 + m.m03*m.m10*m.m31 - m.m00*m.m13*m.m31 - m.m01*m.m10*m.m33 + m.m00*m.m11*m.m33
+        matrix.m23 = m.m03*m.m11*m.m20 - m.m01*m.m13*m.m20 - m.m03*m.m10*m.m21 + m.m00*m.m13*m.m21 + m.m01*m.m10*m.m23 - m.m00*m.m11*m.m23
+
+        matrix.m30 = m.m12*m.m21*m.m30 - m.m11*m.m22*m.m30 - m.m12*m.m20*m.m31 + m.m10*m.m22*m.m31 + m.m11*m.m20*m.m32 - m.m10*m.m21*m.m32
+        matrix.m31 = m.m01*m.m22*m.m30 - m.m02*m.m21*m.m30 + m.m02*m.m20*m.m31 - m.m00*m.m22*m.m31 - m.m01*m.m20*m.m32 + m.m00*m.m21*m.m32
+        matrix.m32 = m.m02*m.m11*m.m30 - m.m01*m.m12*m.m30 - m.m02*m.m10*m.m31 + m.m00*m.m12*m.m31 + m.m01*m.m10*m.m32 - m.m00*m.m11*m.m32
+        matrix.m33 = m.m01*m.m12*m.m20 - m.m02*m.m11*m.m20 + m.m02*m.m10*m.m21 - m.m00*m.m12*m.m21 - m.m01*m.m10*m.m22 + m.m00*m.m11*m.m22
 
         matrix
       end

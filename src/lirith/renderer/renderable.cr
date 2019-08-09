@@ -1,3 +1,5 @@
+require "./attributes"
+
 module Lirith
   module Renderer
     module Renderable

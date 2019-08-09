@@ -6,8 +6,8 @@ module Lirith
     class OpenGL < Base
       def initialize
         @program = Program.new
-        @program.attach Shader.from_file(LibGL::E_VERTEX_SHADER, "vertex_shader.glsl")
-        @program.attach Shader.from_file(LibGL::E_FRAGMENT_SHADER, "fragment_shader.glsl")
+        @program.attach Shader.from_file(LibGL::E_VERTEX_SHADER, "basic.vs.glsl")
+        @program.attach Shader.from_file(LibGL::E_FRAGMENT_SHADER, "basic.fs.glsl")
         @program.link
 
         LibGL.enable LibGL::E_DEPTH_TEST
@@ -25,14 +25,20 @@ module Lirith
         LibGL.clear LibGL::E_COLOR_BUFFER_BIT | LibGL::E_DEPTH_BUFFER_BIT
 
         @program.use
-        @program.set_uniform_matrix_4f "MVP", 0_u8, camera.mvp
+
+
+        @program.set_uniform_matrix_4f "view", 0_u8, camera.view.inverse
+        @program.set_uniform_matrix_4f "projection", 0_u8, camera.projection
+
         render(scene)
       end
 
       def render(object : Object)
         case object
         when Scene        ; Elements::Scene.render(object)
-        when Objects::Mesh; Elements::Mesh.render(object)
+        when Objects::Mesh
+          @program.set_uniform_matrix_4f "world", 0_u8, object.view
+          Elements::Mesh.render(object)
         end
 
         object.children.each { |child| render(child) } if object.responds_to?(:children)

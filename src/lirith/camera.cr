@@ -2,29 +2,32 @@ require "./renderer"
 
 module Lirith
   class Camera
-    include Renderer::Renderable
+    include Renderer::Drawable
 
-    property position = Math::Vector3.zero
-    property projection = Math::Matrix4.perspectiveFov(
-      Float32.new(45),
-      Float32.new(1.33333),
-      Float32.new(0.1),
-      Float32.new(100))
+    property projection
 
-    # property model =
+    property fov = 45_f32
+
+    property width = 1024_f32 # Theise are the same as in the window, might want to leave it there
+    property height = 768_f32
+
+    property near = 1_f32
+    property far = 2000_f32
 
     def initialize
-      # @position.x = Float32.new(5)
-      # @position.y = Float32.new(5)
       @position.z = Float32.new(10)
+
+      @projection = Math::Matrix4.perspectiveFov(@fov, @width / @height, @near, @far)
+      update_view
     end
 
-    def mvp
-      dir = Math::Vector3.new(0.001592548, 0.0, -0.99999875)
-      up = Math::Vector3.new(-0.0, 1.0, 0.0)
-      view = Math::Matrix4.look_at(@position, @position + dir, up)
-      model = Math::Matrix4.identity
-      projection * view * model
+    def update_projection
+      Math::Matrix4.perspectiveFov(@fov, @width / @height, @near, @far)
+    end
+
+    def look_at(vector : Vector3)
+      matrix = Math::Matrix4.look_at(@position, vector, Math::Vector3.up)
+      quaternion.setFromRotation(matrix)
     end
   end
 end

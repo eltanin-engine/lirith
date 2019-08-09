@@ -3,11 +3,7 @@ require "../renderer"
 module Lirith
   module Objects
     abstract class Base
-      include Renderer::Renderable
-
-      property position = Math::Vector3.zero
-      property quaternation = "need to implement"
-      property scale = Math::Vector3.zero
+      include Renderer::Drawable
 
       property children = [] of self
 
