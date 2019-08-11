@@ -99,13 +99,7 @@ module Lirith
       end
 
       def clone
-        matrix = Matrix4.new
-
-        0.upto(15) do |i|
-          matrix[i] = self.[i]
-        end
-
-        matrix
+        Matrix4.new { |i| @buffer[i].clone }
       end
 
       def self.new(&block : Int32 -> Float32)
