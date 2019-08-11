@@ -41,12 +41,12 @@ module Lirith
       end
 
       def determinant
-        m03*m12*m21*m30 - m02*m13*m21*m30 - m03*m11*m22*m30 + m01*m13*m22*m30+
-        m02*m11*m23*m30 - m01*m12*m23*m30 - m03*m12*m20*m31 + m02*m13*m20*m31+
-        m03*m10*m22*m31 - m00*m13*m22*m31 - m02*m10*m23*m31 + m00*m12*m23*m31+
-        m03*m11*m20*m32 - m01*m13*m20*m32 - m03*m10*m21*m32 + m00*m13*m21*m32+
-        m01*m10*m23*m32 - m00*m11*m23*m32 - m02*m11*m20*m33 + m01*m12*m20*m33+
-        m02*m10*m21*m33 - m00*m12*m21*m33 - m01*m10*m22*m33 + m00*m11*m22*m33
+        m03*m12*m21*m30 - m02*m13*m21*m30 - m03*m11*m22*m30 + m01*m13*m22*m30 +
+          m02*m11*m23*m30 - m01*m12*m23*m30 - m03*m12*m20*m31 + m02*m13*m20*m31 +
+          m03*m10*m22*m31 - m00*m13*m22*m31 - m02*m10*m23*m31 + m00*m12*m23*m31 +
+          m03*m11*m20*m32 - m01*m13*m20*m32 - m03*m10*m21*m32 + m00*m13*m21*m32 +
+          m01*m10*m23*m32 - m00*m11*m23*m32 - m02*m11*m20*m33 + m01*m12*m20*m33 +
+          m02*m10*m21*m33 - m00*m12*m21*m33 - m01*m10*m22*m33 + m00*m11*m22*m33
       end
 
       def rotate(q : Quaternion)
@@ -55,15 +55,14 @@ module Lirith
         self.m02 = (q.x * (q.z + q.z)) - (q.w * (q.y + q.y))
         self.m03 = 0
 
-
         self.m10 = (q.x * (q.y + q.y)) - (q.w * (q.z + q.z))
-        self.m11 = 1 - ( (q.x * (q.x + q.x)) + (q.z * (q.z + q.z)) )
+        self.m11 = 1 - ((q.x * (q.x + q.x)) + (q.z * (q.z + q.z)))
         self.m12 = (q.y * (q.z + q.z)) + (q.w * (q.x + q.x))
         self.m13 = 0
 
         self.m20 = (q.x * (q.z + q.z)) + (q.w * (q.y + q.y))
         self.m21 = (q.y * (q.z + q.z)) - (q.w * (q.x + q.x))
-        self.m22 = 1 - ( (q.x * (q.x + q.x)) + (q.y * (q.y + q.y)) )
+        self.m22 = 1 - ((q.x * (q.x + q.x)) + (q.y * (q.y + q.y)))
         self.m23 = 0
 
         self.m30 = 0
@@ -79,28 +78,38 @@ module Lirith
       end
 
       def scale(scale : Vector3)
-        self.m00 *= scale.x;
-        self.m01 *= scale.x;
-        self.m02 *= scale.x;
-        self.m03 *= scale.x;
+        self.m00 *= scale.x
+        self.m01 *= scale.x
+        self.m02 *= scale.x
+        self.m03 *= scale.x
 
-        self.m10 *= scale.y;
-        self.m11 *= scale.y;
-        self.m12 *= scale.y;
-        self.m13 *= scale.y;
+        self.m10 *= scale.y
+        self.m11 *= scale.y
+        self.m12 *= scale.y
+        self.m13 *= scale.y
 
-        self.m20 *= scale.z;
-        self.m21 *= scale.z;
-        self.m22 *= scale.z;
-        self.m23 *= scale.z;
+        self.m20 *= scale.z
+        self.m21 *= scale.z
+        self.m22 *= scale.z
+        self.m23 *= scale.z
       end
 
       def inverse
-        self.class.inverse(self)
+        Matrix4.inverse(self)
+      end
+
+      def clone
+        matrix = Matrix4.new
+
+        0.upto(15) do |i|
+          matrix[i] = self.[i]
+        end
+
+        matrix
       end
 
       def self.new(&block : Int32 -> Float32)
-        matrix = self.new
+        matrix = new
 
         0.upto(15) do |i|
           matrix[i] = yield i

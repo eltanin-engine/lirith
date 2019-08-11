@@ -8,5 +8,9 @@ module Lirith
 
     def initialize(@position, @color)
     end
+
+    def clone
+      Vertex.new(@position.clone, @color.clone)
+    end
   end
 end

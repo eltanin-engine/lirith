@@ -12,6 +12,10 @@ module Lirith
         @buffer[3] = alpha
       end
 
+      def clone
+        Color.new(red, green, blue, alpha)
+      end
+
       def self.from_hex(hex : Int32)
         hex = hex.floor
 
@@ -28,6 +32,7 @@ module Lirith
 
       simple_initialize(black, 0f32, 0f32, 0f32)
       simple_initialize(white, 1f32, 1f32, 1f32)
+      simple_initialize(red, 1f32, 0f32, 0f32)
     end
   end
 end

@@ -50,14 +50,14 @@ module Lirith
       end
 
       def apply(q : Quaternion)
-        ix = q.w * x + q.y * z - q.z * y;
-        iy = q.w * y + q.z * x - q.x * z;
-        iz = q.w * z + q.x * y - q.y * x;
-        iw = - q.x * x - q.y * y - q.z * z;
+        ix = q.w * x + q.y * z - q.z * y
+        iy = q.w * y + q.z * x - q.x * z
+        iz = q.w * z + q.x * y - q.y * x
+        iw = -q.x * x - q.y * y - q.z * z
 
-        self.x = ix * q.w + iw * - q.x + iy * - q.z - iz * - q.y;
-        self.y = iy * q.w + iw * - q.y + iz * - q.x - ix * - q.z;
-        self.z = iz * q.w + iw * - q.z + ix * - q.y - iy * - q.x;
+        self.x = ix * q.w + iw * -q.x + iy * -q.z - iz * -q.y
+        self.y = iy * q.w + iw * -q.y + iz * -q.x - ix * -q.z
+        self.z = iz * q.w + iw * -q.z + ix * -q.y - iy * -q.x
       end
 
       def cross(v : Vector3)
@@ -72,6 +72,10 @@ module Lirith
         x * v.x + y * v.y + z * v.z
       end
 
+      def clone
+        Vector3.new(x, y, z)
+      end
+
       simple_initialize(zero, 0f32, 0f32, 0f32)
 
       simple_initialize(up, 0f32, 1f32, 0f32)
@@ -80,7 +84,6 @@ module Lirith
       simple_initialize(x_axis, 1f32, 0f32, 0f32)
       simple_initialize(y_axis, 0f32, 1f32, 0f32)
       simple_initialize(z_axis, 0f32, 0f32, 1f32)
-
     end
   end
 end

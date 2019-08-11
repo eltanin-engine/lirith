@@ -8,6 +8,15 @@ module Lirith
 
       def initialize
       end
+
+      def clone
+        mesh = super
+
+        mesh.vertices = @vertices.clone
+        mesh.material = @material.clone
+
+        mesh
+      end
     end
   end
 end

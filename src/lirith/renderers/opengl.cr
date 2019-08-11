@@ -26,7 +26,6 @@ module Lirith
 
         @program.use
 
-
         @program.set_uniform_matrix_4f "view", 0_u8, camera.view.inverse
         @program.set_uniform_matrix_4f "projection", 0_u8, camera.projection
 
@@ -35,7 +34,7 @@ module Lirith
 
       def render(object : Object)
         case object
-        when Scene        ; Elements::Scene.render(object)
+        when Scene; Elements::Scene.render(object)
         when Objects::Mesh
           @program.set_uniform_matrix_4f "world", 0_u8, object.view
           Elements::Mesh.render(object)
