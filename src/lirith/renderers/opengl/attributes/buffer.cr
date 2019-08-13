@@ -7,6 +7,7 @@ module Lirith
             # MUST be the same as defined in the vertex shader
             Position = 0
             Color    = 1
+            UV       = 2
           end
 
           getter buffer_id

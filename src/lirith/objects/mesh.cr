@@ -4,6 +4,7 @@ module Lirith
   module Objects
     class Mesh < Base
       property vertices = Array(Vertex).new
+      property faces = Array(Face).new
       property material : Materials::Base?
 
       def initialize

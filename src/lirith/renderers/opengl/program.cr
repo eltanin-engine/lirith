@@ -38,6 +38,11 @@ module Lirith
           location = LibGL.get_uniform_location @program_id, name
           LibGL.uniform_matrix4fv location, 1, transpose, data
         end
+
+        def set_uniform_bool(name, data)
+          location = LibGL.get_uniform_location @program_id, name
+          LibGL.uniform1i location, data
+        end
       end
     end
   end

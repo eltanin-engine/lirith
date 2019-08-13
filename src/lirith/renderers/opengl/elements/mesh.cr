@@ -21,6 +21,11 @@ module Lirith
               end
               attributes.buffers[:color] = color_buffer
 
+              # UV buffer
+              uv_buffer = Attributes::Buffer.new(Attributes::Buffer::IndexType::UV)
+              uv_buffer.set(mesh.vertices.map(&.uv))
+              attributes.buffers[:uv] = uv_buffer
+
               mesh.render_attributes = attributes
               mesh.needs_update = false
             end

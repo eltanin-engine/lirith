@@ -37,6 +37,7 @@ module Lirith
         when Scene; Elements::Scene.render(object)
         when Objects::Mesh
           @program.set_uniform_matrix_4f "world", 0_u8, object.view
+          @program.set_uniform_bool "use_texture", 0_u8
           Elements::Mesh.render(object)
         end
 

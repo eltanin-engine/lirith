@@ -29,6 +29,10 @@ module Lirith
               object.vertices[(i * 3) + 1],
               object.vertices[(i * 3) + 2]
             ),
+            Math::Vector2.new(
+              object.uv[i * 2],
+              object.uv[(i * 2) + 1]
+            ),
             Math::Color.new(
               object.colors[i * 3],
               object.colors[(i * 3) + 1],
@@ -36,7 +40,6 @@ module Lirith
             )
           )
         end
-
         # mesh.material = Materials::Base.new
         mesh
       end
