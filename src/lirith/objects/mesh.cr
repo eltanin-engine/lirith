@@ -6,6 +6,7 @@ module Lirith
       property vertices = Array(Vertex).new
       property faces = Array(Face).new
       property material : Materials::Base?
+      property texture : Texture?
 
       def initialize
       end
