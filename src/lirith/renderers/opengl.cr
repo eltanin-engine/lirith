@@ -33,6 +33,8 @@ module Lirith
       end
 
       def render(object : Object)
+        #texture_id = uninitialized UInt32
+
         case object
         when Scene; Elements::Scene.render(object)
         when Objects::Mesh
@@ -41,14 +43,11 @@ module Lirith
           if texture = object.texture
             @program.set_uniform_bool "use_texture", 1_u8
             LibGL.gen_textures 1, out texture_id
+            # Lol, this is bad
             LibGL.bind_texture(LibGL::E_TEXTURE_2D, texture_id)
-            LibGL.tex_image2d(LibGL::E_TEXTURE_2D, 0, LibGL::E_RGB, texture.width, texture.height, 0, LibGL::E_BGR, LibGL::E_UNSIGNED_BYTE, texture.data)
+            LibGL.tex_image2d(LibGL::E_TEXTURE_2D, 0, LibGL::E_RGB, texture.image.not_nil!.width, texture.image.not_nil!.height, 0, LibGL::E_BGR, LibGL::E_UNSIGNED_BYTE, texture.image.not_nil!.data)
             LibGL.tex_parameteri(LibGL::E_TEXTURE_2D, LibGL::E_TEXTURE_MAG_FILTER, LibGL::E_NEAREST)
             LibGL.tex_parameteri(LibGL::E_TEXTURE_2D, LibGL::E_TEXTURE_MIN_FILTER, LibGL::E_NEAREST)
-            #glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            #glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
-
-            #p texture_id
           else
             @program.set_uniform_bool "use_texture", 0_u8
           end

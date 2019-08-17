@@ -18,6 +18,9 @@ dependencies:
   glew:
     path: ../glew
     #github: lirith-engine/glew
+  r_image:
+    path: ../r_image
+    #github: lirith-engine/r_image
 
 crystal: 0.23.1
 
