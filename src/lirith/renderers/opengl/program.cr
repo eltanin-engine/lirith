@@ -1,6 +1,6 @@
 module Lirith
   module Renderers
-    class OpenGL < Base
+    module OpenGL
       class Program
         getter :program_id
 
@@ -34,9 +34,13 @@ module Lirith
           LibGL.use_program @program_id
         end
 
-        def set_uniform_matrix_4f(name, transpose, data)
+        def uniform_location(name)
+          LibGL.get_uniform_location @program_id, name
+        end
+
+        def set_uniform_matrix_4f(name, data)
           location = LibGL.get_uniform_location @program_id, name
-          LibGL.uniform_matrix4fv location, 1, transpose, data
+          LibGL.uniform_matrix4fv location, 1, 0_u8, data
         end
 
         def set_uniform_bool(name, data)

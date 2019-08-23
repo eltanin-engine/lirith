@@ -1,6 +1,6 @@
 module Lirith
   module Renderers
-    class OpenGL < Base
+    module OpenGL
       module Attributes
         class Buffer
           enum IndexType

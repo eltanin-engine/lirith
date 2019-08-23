@@ -2,7 +2,7 @@ require "./elements/*"
 
 module Lirith
   module Renderers
-    class OpenGL < Base
+    module OpenGL
       module Elements
       end
     end

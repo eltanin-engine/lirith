@@ -1,6 +1,6 @@
 module Lirith
   module Renderers
-    class OpenGL < Base
+    module OpenGL
       class ObjectAttributes < Renderer::Attributes
         property buffers = {} of Symbol => Attributes::Buffer
         getter vertex_array_id
