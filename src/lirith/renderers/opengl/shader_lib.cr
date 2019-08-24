@@ -3,6 +3,8 @@ module Lirith
   module Renderers
     module OpenGL
       class ShaderLib
+        include Singleton
+
         getter programs = {} of Symbol => Program
 
         def build_program(name : Symbol)
@@ -21,12 +23,8 @@ module Lirith
           @programs[name] = build_program(name)
         end
 
-        def self.instance
-          @@instance ||= new
-        end
-
         def self.find(name : Symbol)
-          self.instance.find(name)
+          instance.find(name)
         end
       end
     end

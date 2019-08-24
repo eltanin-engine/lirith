@@ -1,6 +1,8 @@
 module Lirith
   module Managers
     class System
+      include Singleton
+
       @systems = Array(Systems::Base).new
       @event_queue = Deque(Events::Base).new
 
@@ -56,10 +58,6 @@ module Lirith
         end
       end
 
-      def self.instance
-        @@instance ||= new
-      end
-
       def trigger_event(event : Events::Base)
         @event_queue << event
       end
@@ -77,23 +75,23 @@ module Lirith
       end
 
       def self.register(system : Systems::Base)
-        self.instance.register(system)
+        instance.register(system)
       end
 
       def self.trigger_event(event : Events::Base)
-        self.instance.trigger_event(event)
+        instance.trigger_event(event)
       end
 
       def self.trigger_event(event_class : Class)
-        self.instance.trigger_event(event_class)
+        instance.trigger_event(event_class)
       end
 
       def self.trigger_direct_event(event : Events::Base)
-        self.instance.trigger_direct_event(event)
+        instance.trigger_direct_event(event)
       end
 
       def self.trigger_direct_event(event_class : Class)
-        self.instance.trigger_direct_event(event_class)
+        instance.trigger_direct_event(event_class)
       end
     end
   end
