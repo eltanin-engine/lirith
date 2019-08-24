@@ -1,8 +1,8 @@
-require "./renderer"
+require "./drawable"
 
 module Lirith
   class Camera
-    include Renderer::Drawable
+    include Drawable
 
     property projection
 

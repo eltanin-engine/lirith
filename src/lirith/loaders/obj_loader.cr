@@ -11,9 +11,9 @@ module Lirith
 
         while line = file.gets
           case line
-          when .starts_with?("v "); vector_cache << parse_vector(line)
+          when .starts_with?("v ") ; vector_cache << parse_vector(line)
           when .starts_with?("vt "); uv_cache << parse_uv(line)
-          when .starts_with?("f "); mesh.vertices += parse_face(line, vector_cache, uv_cache)
+          when .starts_with?("f ") ; mesh.vertices += parse_face(line, vector_cache, uv_cache)
           end
         end
 
@@ -50,7 +50,7 @@ module Lirith
         vertices = [] of Vertex
 
         params.each do |vertex|
-          vertices <<  Vertex.new(
+          vertices << Vertex.new(
             vectors[vertex[0].not_nil! - 1].clone,
             uvs[vertex[1].not_nil! - 1].clone,
             Math::Color.black

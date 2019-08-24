@@ -1,7 +1,6 @@
 require "./renderable"
 
 module Lirith
-  module Renderer
     module Drawable
       include Renderable
       # Move this to base object?
@@ -67,5 +66,4 @@ module Lirith
         obj
       end
     end
-  end
 end

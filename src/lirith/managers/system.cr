@@ -1,3 +1,4 @@
+require "../singleton"
 module Lirith
   module Managers
     class System

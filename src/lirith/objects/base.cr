@@ -3,7 +3,7 @@ require "../renderer"
 module Lirith
   module Objects
     abstract class Base
-      include Renderer::Drawable
+      include Drawable
 
       property children = [] of self
 

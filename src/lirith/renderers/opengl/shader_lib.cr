@@ -1,4 +1,5 @@
 require "./program"
+
 module Lirith
   module Renderers
     module OpenGL

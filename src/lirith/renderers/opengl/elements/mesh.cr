@@ -10,25 +10,31 @@ module Lirith
             draw_call.uniforms["world"] = mesh.view
 
             if texture = mesh.texture
-              draw_call.uniforms["use_texture"] = 1_u8
-              LibGL.gen_textures 1, out texture_id
-              # Lol, this is bad
-              LibGL.bind_texture(LibGL::E_TEXTURE_2D, texture_id)
+              if texture.needs_update?
+                attributes = TextureAttributes.new
+                texture.render_attributes = attributes
+                texture.needs_update = false
+
+                p attributes
+              end
+
+              texture.render_attributes.try(&.use)
               LibGL.tex_image2d(LibGL::E_TEXTURE_2D, 0, LibGL::E_RGB, texture.image.not_nil!.width, texture.image.not_nil!.height, 0, LibGL::E_BGR, LibGL::E_UNSIGNED_BYTE, texture.image.not_nil!.data)
               LibGL.tex_parameteri(LibGL::E_TEXTURE_2D, LibGL::E_TEXTURE_MAG_FILTER, LibGL::E_NEAREST)
               LibGL.tex_parameteri(LibGL::E_TEXTURE_2D, LibGL::E_TEXTURE_MIN_FILTER, LibGL::E_NEAREST)
+              texture.render_attributes.try(&.close)
+
+              draw_call.uniforms["use_texture"] = 1_u8
             else
               draw_call.uniforms["use_texture"] = 0_u8
             end
 
-
             draw_call.uniforms.each do |name, data|
               case data
               when Math::Matrix4; LibGL.uniform_matrix4fv(program.uniform_location(name), 1, 0_u8, data)
-              when UInt8; LibGL.uniform1i(program.uniform_location(name), data)
+              when UInt8        ; LibGL.uniform1i(program.uniform_location(name), data)
               end
             end
-
 
             if mesh.needs_update?
               attributes = ObjectAttributes.new

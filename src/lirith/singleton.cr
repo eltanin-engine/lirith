@@ -6,7 +6,12 @@ module Lirith
       end
     end
 
-    def dup; raise "Singletons can't be duped"; end
-    def clone; raise "Singletons can't be cloned"; end
+    def dup
+      raise "Singletons can't be duped"
+    end
+
+    def clone
+      raise "Singletons can't be cloned"
+    end
   end
 end

@@ -36,7 +36,7 @@ module Lirith
             )
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * (ix + 1), segment_height * (iy + 1), 0),
-              Math::Vector2.new(1,1),
+              Math::Vector2.new(1, 1),
               Math::Color.red
             )
             mesh.vertices << Vertex.new(

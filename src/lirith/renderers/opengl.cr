@@ -27,8 +27,8 @@ module Lirith
 
       def render(object : Object, draw_call : DrawCall)
         case object
-        when Scene; Elements::Scene.render(object, draw_call)
-        when Objects::Mesh;Elements::Mesh.render(object, draw_call)
+        when Scene        ; Elements::Scene.render(object, draw_call)
+        when Objects::Mesh; Elements::Mesh.render(object, draw_call)
         end
 
         object.children.each { |child| render(child, draw_call) } if object.responds_to?(:children)
