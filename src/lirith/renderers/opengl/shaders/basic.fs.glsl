@@ -12,7 +12,7 @@ uniform bool use_texture;
 void main() {
   if(use_texture == true){
     color = texture( textureSampler, fragmentUV ).rgb;
-    //color = vec4(1,0,0,1);  
+    //color = vec4(1,0,0,1).rgb;  
   }else{
     color = fragmentColor;
   }

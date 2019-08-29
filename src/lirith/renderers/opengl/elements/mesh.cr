@@ -14,15 +14,13 @@ module Lirith
                 attributes = TextureAttributes.new
                 texture.render_attributes = attributes
                 texture.needs_update = false
-
-                p attributes
               end
 
               texture.render_attributes.try(&.use)
               LibGL.tex_image2d(LibGL::E_TEXTURE_2D, 0, LibGL::E_RGB, texture.image.not_nil!.width, texture.image.not_nil!.height, 0, LibGL::E_BGR, LibGL::E_UNSIGNED_BYTE, texture.image.not_nil!.data)
               LibGL.tex_parameteri(LibGL::E_TEXTURE_2D, LibGL::E_TEXTURE_MAG_FILTER, LibGL::E_NEAREST)
               LibGL.tex_parameteri(LibGL::E_TEXTURE_2D, LibGL::E_TEXTURE_MIN_FILTER, LibGL::E_NEAREST)
-              texture.render_attributes.try(&.close)
+              #texture.render_attributes.try(&.close)
 
               draw_call.uniforms["use_texture"] = 1_u8
             else

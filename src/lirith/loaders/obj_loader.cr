@@ -46,15 +46,34 @@ module Lirith
       end
 
       private def parse_face(line : String, vectors : Array(Math::Vector3), uvs : Array(Math::Vector2))
-        params = line_params_i(line).in_groups_of(3)
+        # params = line_params_i(line).in_groups_of(1)
         vertices = [] of Vertex
 
-        params.each do |vertex|
-          vertices << Vertex.new(
-            vectors[vertex[0].not_nil! - 1].clone,
-            uvs[vertex[1].not_nil! - 1].clone,
-            Math::Color.black
-          )
+        params = line.scan(/[\d\/]+/).map(&.[0].split('/').map(&.to_i))
+        faces = [] of Array(Array(Int32))
+
+        v1 = params[0]
+        (1..(params.size - 2)).each do |i|
+          v2 = params[i]
+          v3 = params[i + 1]
+
+          faces << [v1, v2, v3]
+        end
+
+        faces.each do |face|
+          face.each do |vertex|
+            vector = vectors[vertex[0].not_nil! - 1].clone
+
+            uv = if (vertex.size > 1)
+                   uvs[vertex[1].not_nil! - 1].clone
+                 else
+                   Math::Vector2.new(0, 0)
+                 end
+
+            color = Math::Color.black
+
+            vertices << Vertex.new(vector, uv, color)
+          end
         end
 
         vertices
