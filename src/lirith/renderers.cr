@@ -1,4 +1,4 @@
-require "./renderers/*"
+require "./renderers/opengl"
 
 module Lirith
   module Renderers

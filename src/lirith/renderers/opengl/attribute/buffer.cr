@@ -1,7 +1,7 @@
 module Lirith
   module Renderers
     module OpenGL
-      module Attributes
+      module Attribute
         class Buffer
           enum IndexType
             # MUST be the same as defined in the vertex shader

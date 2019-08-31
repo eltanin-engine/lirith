@@ -1,3 +1,4 @@
+require "./attribute"
 require "./attributes/*"
 
 module Lirith

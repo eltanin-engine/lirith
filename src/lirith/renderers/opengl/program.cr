@@ -38,14 +38,22 @@ module Lirith
           LibGL.get_uniform_location @program_id, name
         end
 
-        def set_uniform_matrix_4f(name, data)
-          location = LibGL.get_uniform_location @program_id, name
-          LibGL.uniform_matrix4fv location, 1, 0_u8, data
+        def uniform(name : String, value : UInt8)
+          LibGL.uniform1i(uniform_location(name), value)
         end
 
-        def set_uniform_bool(name, data)
-          location = LibGL.get_uniform_location @program_id, name
-          LibGL.uniform1i location, data
+        def uniform(name : String, value : Math::Matrix4)
+          LibGL.uniform_matrix4fv(uniform_location(name), 1, 0_u8, value)
+        end
+
+        def uniform(name : String, value : Math::Color)
+          LibGL.uniform4f(
+            uniform_location(name),
+            value.red,
+            value.green,
+            value.blue,
+            value.alpha
+          )
         end
       end
     end

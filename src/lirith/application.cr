@@ -3,8 +3,8 @@ module Lirith
     getter window = Window.new
     getter game_clock = Clocks::Game.new
     getter scene = Scene.new
-    getter renderer = Renderers::OpenGL
     getter camera = Camera.new
+    getter renderer = Renderers::OpenGL::Core.new(@scene, @camera)
 
     def initialize
       Lirith.application = self

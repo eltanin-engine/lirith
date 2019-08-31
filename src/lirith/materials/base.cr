@@ -1,10 +1,15 @@
+require "./../texture"
+
 module Lirith
   module Materials
-    class Base
+    abstract class Base
+      include Renderable
+
       property color = Math::Color.black
+      property texture : Texture?
 
       def clone
-        material = Base.new
+        material = self.class.new
         material.color = color.clone
         material
       end

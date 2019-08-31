@@ -32,6 +32,7 @@ module Lirith
 
       simple_initialize(black, 0f32, 0f32, 0f32)
       simple_initialize(white, 1f32, 1f32, 1f32)
+      simple_initialize(transparent, 0f32, 0f32, 0f32, 0f32)
       simple_initialize(red, 1f32, 0f32, 0f32)
     end
   end

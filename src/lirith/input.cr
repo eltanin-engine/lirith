@@ -37,6 +37,8 @@ module Lirith
       X              = LibGLFW::KEY_X
       Y              = LibGLFW::KEY_Y
       Z              = LibGLFW::KEY_Z
+      LeftShift      = LibGLFW::KEY_LEFT_SHIFT
+      LeftControl    = LibGLFW::KEY_LEFT_CONTROL
       KeyGraveAccent = LibGLFW::KEY_GRAVE_ACCENT
       KeyEscape      = LibGLFW::KEY_ESCAPE
     end
