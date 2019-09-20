@@ -14,9 +14,11 @@ module Lirith
             attributes.buffers[:vertex] = vertex_buffer
 
             # Color Buffer
-            color_buffer = Attribute::Buffer.new(Attribute::Buffer::IndexType::Color)
-            color_buffer.set(object.vertices.map(&.color).compact)
-            attributes.buffers[:colors] = color_buffer
+            if object.colors.any?
+              color_buffer = Attribute::Buffer.new(Attribute::Buffer::IndexType::Color)
+              color_buffer.set(object.colors.compact)
+              attributes.buffers[:colors] = color_buffer
+            end
 
             # UV buffer
             uv_buffer = Attribute::Buffer.new(Attribute::Buffer::IndexType::UV)

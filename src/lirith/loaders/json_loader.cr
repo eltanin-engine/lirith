@@ -32,13 +32,14 @@ module Lirith
             Math::Vector2.new(
               object.uv[i * 2],
               object.uv[(i * 2) + 1]
-            ),
-            Math::Color.new(
-              object.colors[i * 3],
-              object.colors[(i * 3) + 1],
-              object.colors[(i * 3) + 2]
             )
           )
+
+          mesh.colors << Math::Color.new(
+            object.colors[i * 3],
+            object.colors[(i * 3) + 1],
+            object.colors[(i * 3) + 2]
+          ) if object.colors.any?
         end
         # mesh.material = Materials::Base.new
         mesh

@@ -7,11 +7,11 @@ module Lirith
     getter camera
 
     def initialize
-      @window = Window.new
-      @game_clock = Clocks::Game.new
-      @scene = Scene.new
-      @renderer = Renderers::OpenGL.new
-      @camera = Camera.new
+      #@window = Window.new
+      #@game_clock = Clocks::Game.new
+      #@scene = Scene.new
+      #@renderer = Renderers::OpenGL.new
+      #@camera = Camera.new
 
       # Managers::System.register(self)
     end

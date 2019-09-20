@@ -14,36 +14,37 @@ module Lirith
             # Face 1
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * ix, segment_height * iy, 0),
-              Math::Vector2.new(0, 0),
-              Math::Color.black
+              Math::Vector2.new(0, 0)
             )
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * ix, segment_height * (iy + 1), 0),
-              Math::Vector2.new(0, 1),
-              Math::Color.black
+              Math::Vector2.new(0, 1)
             )
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * (ix + 1), segment_height * iy, 0),
-              Math::Vector2.new(1, 0),
-              Math::Color.black
+              Math::Vector2.new(1, 0)
             )
+            mesh.colors << Math::Color.black
+            mesh.colors << Math::Color.black
+            mesh.colors << Math::Color.black
 
             # Face 2
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * ix, segment_height * (iy + 1), 0),
-              Math::Vector2.new(0, 1),
-              Math::Color.red
+              Math::Vector2.new(0, 1)
             )
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * (ix + 1), segment_height * (iy + 1), 0),
-              Math::Vector2.new(1, 1),
-              Math::Color.red
+              Math::Vector2.new(1, 1)
             )
             mesh.vertices << Vertex.new(
               Math::Vector3.new(segment_width * (ix + 1), segment_height * iy, 0),
-              Math::Vector2.new(1, 0),
-              Math::Color.red
+              Math::Vector2.new(1, 0)
             )
+
+            mesh.colors << Math::Color.red
+            mesh.colors << Math::Color.red
+            mesh.colors << Math::Color.red
           end
         end
 

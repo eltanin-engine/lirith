@@ -8,8 +8,8 @@ module Lirith
 
     property fov = 45_f32
 
-    property width = 1024_f32 # Theise are the same as in the window, might want to leave it there
-    property height = 768_f32
+    property width = 1024_f32 # 1920_f32 # 1024_f32 # Theise are the same as in the window, might want to leave it there
+    property height = 768_f32 # 1200_f32 # 768_f32
 
     property near = 1_f32
     property far = 2000_f32

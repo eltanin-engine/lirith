@@ -1,6 +1,6 @@
 module Lirith
   abstract class Application
-    getter window = Window.new
+    getter window = Window.new(960,540, fullscreen: true)
     getter game_clock = Clocks::Game.new
     getter scene = Scene.new
     getter camera = Camera.new
@@ -8,6 +8,8 @@ module Lirith
 
     def initialize
       Lirith.application = self
+      @camera.width = Float32.new(@window.width)
+      @camera.height = Float32.new(@window.height)
 
       Lirith::Managers::System.instance.register(Systems::Application.new)
 

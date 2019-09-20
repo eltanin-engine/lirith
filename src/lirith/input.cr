@@ -41,9 +41,13 @@ module Lirith
       LeftControl    = LibGLFW::KEY_LEFT_CONTROL
       KeyGraveAccent = LibGLFW::KEY_GRAVE_ACCENT
       KeyEscape      = LibGLFW::KEY_ESCAPE
+      PageUp         = LibGLFW::KEY_PAGE_UP
+      PageDown       = LibGLFW::KEY_PAGE_DOWN
+      Left           = LibGLFW::KEY_LEFT
+      Right          = LibGLFW::KEY_RIGHT
     end
 
-    def self.handle_key(window : LibGLFW::Window*, key : Int32, scancode : Int32, action : Int32, mods : Int32) : Void
+    def self.handle_key(window : LibGLFW::Window, key : Int32, scancode : Int32, action : Int32, mods : Int32) : Void
       case action
       when LibGLFW::PRESS  ; Managers::System.trigger_event(Events::Input::KeyPressed.new(Keys.new(key)))
       when LibGLFW::RELEASE; Managers::System.trigger_event(Events::Input::KeyReleased.new(Keys.new(key)))

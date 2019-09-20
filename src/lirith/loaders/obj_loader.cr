@@ -3,17 +3,24 @@ require "./base"
 module Lirith
   module Loaders
     class ObjLoader < Base
+      @vector_cache = [] of Math::Vector3
+      @uv_cache = [] of Math::Vector2
+
       def load(file : File)
         mesh = Objects::Mesh.new
 
-        vector_cache = [] of Math::Vector3
-        uv_cache = [] of Math::Vector2
+        @vector_cache = [] of Math::Vector3
+        @uv_cache = [] of Math::Vector2
 
+        face_count = 0
         while line = file.gets
           case line
-          when .starts_with?("v ") ; vector_cache << parse_vector(line)
-          when .starts_with?("vt "); uv_cache << parse_uv(line)
-          when .starts_with?("f ") ; mesh.vertices += parse_face(line, vector_cache, uv_cache)
+          when .starts_with?("v ") ; @vector_cache << parse_vector(line)
+          when .starts_with?("vt "); @uv_cache << parse_uv(line)
+          when .starts_with?("f ")
+            parse_face(line).each do |v|
+              mesh.vertices << v
+            end
           end
         end
 
@@ -45,7 +52,7 @@ module Lirith
         )
       end
 
-      private def parse_face(line : String, vectors : Array(Math::Vector3), uvs : Array(Math::Vector2))
+      private def parse_face(line : String)
         # params = line_params_i(line).in_groups_of(1)
         vertices = [] of Vertex
 
@@ -62,17 +69,17 @@ module Lirith
 
         faces.each do |face|
           face.each do |vertex|
-            vector = vectors[vertex[0].not_nil! - 1].clone
+            vector = @vector_cache[vertex[0].not_nil! - 1].clone
 
             uv = if (vertex.size > 1)
-                   uvs[vertex[1].not_nil! - 1].clone
+                   @uv_cache[vertex[1].not_nil! - 1].clone
                  else
                    Math::Vector2.new(0, 0)
                  end
 
-            color = Math::Color.black
+            #color = Math::Color.black
 
-            vertices << Vertex.new(vector, uv, color)
+            vertices << Vertex.new(vector, uv)
           end
         end
 

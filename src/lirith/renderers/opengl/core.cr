@@ -44,6 +44,13 @@ module Lirith
           program.uniform("view", @camera.view.inverse)
           program.uniform("projection", @camera.projection)
 
+          program.uniform("use_texture", 0_u8)
+          if texture = material.texture
+            texture.render_attributes.try(&.use)
+            Elements::Texture.use(texture)
+            program.uniform("use_texture", 1_u8)
+          end
+
           program
         end
 
@@ -54,15 +61,10 @@ module Lirith
 
           program.uniform("world", object.view)
 
-          program.uniform("use_texture", 0_u8)
-          if texture = object.material.texture
-            texture.render_attributes.try(&.use)
-            Elements::Texture.use(texture)
-            program.uniform("use_texture", 1_u8)
-          end
-
           object.render_attributes.try(&.use) # try or not_nil! ?
+
           LibGL.draw_arrays LibGL::E_TRIANGLES, 0, object.vertices.size
+
           object.render_attributes.try(&.close)
 
           if texture = object.material.texture

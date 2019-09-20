@@ -4,7 +4,7 @@ module Lirith
     property width
     property title
 
-    def initialize(@width = 1024, @height = 768, @title = "")
+    def initialize(@width = 1024, @height = 768, @title = "", fullscreen = false)
       raise "Failed to initialize GLFW" unless LibGLFW.init
 
       LibGLFW.window_hint LibGLFW::SAMPLES, 4
@@ -13,7 +13,25 @@ module Lirith
       LibGLFW.window_hint LibGLFW::OPENGL_FORWARD_COMPAT, 1
       LibGLFW.window_hint LibGLFW::OPENGL_PROFILE, LibGLFW::OPENGL_CORE_PROFILE
 
-      @handle = LibGLFW.create_window(width, height, title, nil, nil)
+
+
+      @handle = if fullscreen
+        monitor = LibGLFW.primary_monitor
+        mode = LibGLFW.video_mode(monitor).value
+
+        LibGLFW.window_hint(LibGLFW::RED_BITS, mode.red_bits);
+        LibGLFW.window_hint(LibGLFW::GREEN_BITS, mode.green_bits);
+        LibGLFW.window_hint(LibGLFW::BLUE_BITS, mode.blue_bits);
+        LibGLFW.window_hint(LibGLFW::REFRESH_RATE, mode.refresh_rate);
+
+        @width = mode.width
+        @height = mode.height
+
+        LibGLFW.create_window(mode.width, mode.height, title, monitor, nil)
+        #LibGLFW.create_window(width, height, title, nil, nil)
+      else
+        LibGLFW.create_window(width, height, title, nil, nil)
+      end
 
       set_current_context
 
@@ -24,6 +42,7 @@ module Lirith
 
       Managers::System.trigger_event(Events::Window::Opened)
       puts "OpenGL version: " + String.new(LibGL.get_string(LibGL::E_VERSION))
+      puts "Window init #{@width}x#{@height}"
     end
 
     def handle : LibGLFW::Window
@@ -35,7 +54,7 @@ module Lirith
     end
 
     def set_callbacks
-      self.class.key_callback(handle, ->Input.handle_key(LibGLFW::Window*, Int32, Int32, Int32, Int32))
+      self.class.key_callback(handle, ->Input.handle_key(LibGLFW::Window, Int32, Int32, Int32, Int32))
     end
 
     def swap_buffers
@@ -44,11 +63,11 @@ module Lirith
 
     protected def set_current_context
       @handle.try do |handle|
-        LibGLFW.set_current_context handle
+        LibGLFW.make_context_current handle
       end
     end
 
-    def self.key_callback(handle : LibGLFW::Window, callback : Proc(LibGLFW::Window*, Int32, Int32, Int32, Int32, Void))
+    def self.key_callback(handle : LibGLFW::Window, callback : Proc(LibGLFW::Window, Int32, Int32, Int32, Int32, Void))
       LibGLFW.set_key_callback(handle, callback)
     end
   end

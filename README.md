@@ -1,4 +1,4 @@
-<img width="400" src="https://cdn.rawgit.com/lirith-engine/lirith/master/media/logo.svg" alt="lirith-engine">
+<img width="400" src="https://cdn.rawgit.com/lirith-engine/lirith/master/media/logo.png" alt="lirith-engine">
 
 # lirith-engine
 [![Build Status](https://travis-ci.org/lirith-engine/lirith.svg?branch=master)](https://travis-ci.org/lirith-engine/lirith)
